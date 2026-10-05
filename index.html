@@ -575,7 +575,6 @@ body{
 ========================================= */
 
 const COMMON_SERVICE_PHONE = "9907992247";
-
 const COMMON_SERVICE_WHATSAPP = "919907992247";
 
 
@@ -585,389 +584,487 @@ const COMMON_SERVICE_WHATSAPP = "919907992247";
 
 const COMMON_ONLINE_SERVICES = [
 
-  {
-    name:"UTI PAN Card Service",
-    description:"Apply, Correction, Download & PAN Status",
-    icon:"🪪",
+    {
+        name: "UTI PAN Card Service",
+        description: "Apply, Correction, Download & PAN Status",
+        icon: "🪪",
+        links: [
+            {
+                title: "Apply PAN",
+                description: "New PAN Apply",
+                url: "https://www.pan.utiitsl.com/newA.html"
+            },
+            {
+                title: "Correction",
+                description: "PAN Correction",
+                url: "https://www.pan.utiitsl.com/PAN_ONLINE/addresschangeHome.action"
+            },
+            {
+                title: "Download",
+                description: "E-PAN Download",
+                url: "https://www.pan.utiitsl.com/PAN_ONLINE/ePANCardHome"
+            },
+            {
+                title: "PAN Status",
+                description: "Check PAN Status",
+                url: "https://www.trackpan.utiitsl.com/PANONLINE/forms/TrackPan/trackApp#forward"
+            },
+            {
+                title: "UTI Portal",
+                description: "Official Portal",
+                url: "https://www.pan.utiitsl.com/"
+            }
+        ]
+    },
 
-    links:[
-      {
-        title:"Apply PAN",
-        description:"New PAN Apply",
-        url:"https://www.pan.utiitsl.com/newA.html"
-      },
-      {
-        title:"Correction",
-        description:"PAN Correction",
-        url:"https://www.pan.utiitsl.com/PAN_ONLINE/addresschangeHome.action"
-      },
-      {
-        title:"Download",
-        description:"E-PAN Download",
-        url:"https://www.pan.utiitsl.com/PAN_ONLINE/ePANCardHome"
-      },
-      {
-        title:"PAN Status",
-        description:"Check PAN Status",
-        url:"https://www.trackpan.utiitsl.com/PANONLINE/forms/TrackPan/trackApp#forward"
-      },
-      {
-        title:"UTI Portal",
-        description:"Official Portal",
-        url:"https://www.pan.utiitsl.com/"
-      }
-    ]
-  },
+    {
+        name: "NSDL PAN Card Service",
+        description: "Apply, Correction, Download & PAN Status",
+        icon: "🪪",
+        links: [
+            {
+                title: "Apply PAN",
+                description: "New PAN Apply",
+                url: "https://onlineservices.proteantech.in/paam/endUserRegisterContact.html"
+            },
+            {
+                title: "Correction",
+                description: "PAN Correction",
+                url: "https://onlineservices.proteantech.in/paam/endUserAddressUpdate.html"
+            },
+            {
+                title: "Download",
+                description: "E-PAN Download",
+                url: "https://onlineservices.proteantech.in/paam/requestAndDownloadEPAN.html"
+            },
+            {
+                title: "PAN Status",
+                description: "Check PAN Status",
+                url: "https://tin.tin.proteantech.in/pantan/StatusTrack.html"
+            },
+            {
+                title: "NSDL Portal",
+                description: "Official Portal",
+                url: "https://onlineservices.proteantech.in/paam/endUserRegisterContact.html"
+            }
+        ]
+    },
 
+    {
+        name: "Voter Card Service",
+        description: "New Voter ID, Search Name & Electoral Roll",
+        icon: "🗳️",
+        links: [
+            {
+                title: "New Voter ID",
+                description: "New Voter Registration",
+                url: "https://voters.eci.gov.in/form6"
+            },
+            {
+                title: "Search Name",
+                description: "Search Your Name",
+                url: "https://electoralsearch.eci.gov.in/uesfmempmlkypo"
+            },
+            {
+                title: "Electoral Roll",
+                description: "Download Electoral Roll",
+                url: "https://voters.eci.gov.in/download-eroll"
+            }
+        ]
+    },
 
-  {
-    name:"NSDL PAN Card Service",
-    description:"Apply, Correction, Download & PAN Status",
-    icon:"🪪",
+    {
+        name: "Aadhaar Service",
+        description: "Aadhaar Download, Update & Status",
+        icon: "🆔",
+        links: [
+            {
+                title: "My Aadhaar Login",
+                description: "Aadhaar Online Services",
+                url: "https://myaadhaar.uidai.gov.in/"
+            },
+            {
+                title: "Verify Mobile / Email",
+                description: "Verify Aadhaar Details",
+                url: "https://myaadhaar.uidai.gov.in/verify-email-mobile/en"
+            },
+            {
+                title: "Check Status",
+                description: "Aadhaar Status",
+                url: "https://myaadhaar.uidai.gov.in/CheckAadhaarStatus/en"
+            },
+            {
+                title: "Aadhaar DBT Link",
+                description: "Bank DBT Services",
+                url: "https://www.npci.org.in/"
+            },
+            {
+                title: "Aadhaar Login",
+                description: "Aadhaar Portal Login",
+                url: "https://myaadhaar.uidai.gov.in/login"
+            }
+        ]
+    },
 
-    links:[
-      {
-        title:"Apply PAN",
-        description:"New PAN Apply",
-        url:"https://onlineservices.proteantech.in/paam/endUserRegisterContact.html"
-      },
-      {
-        title:"Correction",
-        description:"PAN Correction",
-        url:"https://onlineservices.proteantech.in/paam/endUserAddressUpdate.html"
-      },
-      {
-        title:"Download",
-        description:"E-PAN Download",
-        url:"https://onlineservices.proteantech.in/paam/requestAndDownloadEPAN.html"
-      },
-      {
-        title:"PAN Status",
-        description:"Check PAN Status",
-        url:"https://tin.tin.proteantech.in/pantan/StatusTrack.html"
-      },
-      {
-        title:"NSDL Portal",
-        description:"Official Portal",
-        url:"https://onlineservices.proteantech.in/paam/endUserRegisterContact.html"
-      }
-    ]
-  },
+    {
+        name: "Ration Card Service",
+        description: "New Apply, Update, Download & Status",
+        icon: "🍚",
+        links: [
+            {
+                title: "Apply New",
+                description: "New Ration Card",
+                url: "https://wbpds.wb.gov.in/rcmsnew/AadhaarAuthenticationLogin/Index"
+            },
+            {
+                title: "Update Information",
+                description: "Ration Card Correction",
+                url: "https://wbpds.wb.gov.in/Benificiary_Deatils_Update_by_Aadhaar.aspx"
+            },
+            {
+                title: "Download",
+                description: "Ration Card Download",
+                url: "https://wbpds.wb.gov.in/E_Card_Download.aspx"
+            },
+            {
+                title: "Aadhaar Link",
+                description: "Ration Aadhaar Link",
+                url: "https://wbpds.wb.gov.in/Ekyc_otp.aspx"
+            },
+            {
+                title: "Status Check",
+                description: "Application Status",
+                url: "https://wbpds.wb.gov.in/CheckApplicationStatus.aspx"
+            }
+        ]
+    },
 
+    {
+        name: "Train Details Service",
+        description: "IRCTC, PNR & Train Information",
+        icon: "🚆",
+        links: [
+            {
+                title: "IRCTC",
+                description: "Train Booking",
+                url: "https://www.irctc.co.in/"
+            },
+            {
+                title: "PNR Status",
+                description: "Check PNR Status",
+                url: "https://indianrail.gov.in/enquiry/PNR/PnrEnquiry.html"
+            }
+        ]
+    },
 
-  {
-    name:"Voter Card Service",
-    description:"New Voter ID, Search Name & Electoral Roll",
-    icon:"🗳️",
+    {
+        name: "Bus Details Checking",
+        description: "Online & Intercity Bus Booking",
+        icon: "🚌",
+        links: [
+            {
+                title: "RedBus",
+                description: "Online Bus Booking",
+                url: "https://www.redbus.in/"
+            },
+            {
+                title: "State Transport",
+                description: "West Bengal Transport",
+                url: "https://www.wbtransport.gov.in/"
+            }
+        ]
+    },
 
-    links:[
-      {
-        title:"New Voter ID",
-        description:"New Voter Registration",
-        url:"https://voters.eci.gov.in/form6"
-      },
-      {
-        title:"Search Name",
-        description:"Search Your Name",
-        url:"https://electoralsearch.eci.gov.in/uesfmempmlkypo"
-      },
-      {
-        title:"Electoral Roll",
-        description:"Download Electoral Roll",
-        url:"https://voters.eci.gov.in/download-eroll"
-      }
-    ]
-  },
+    {
+        name: "JOB CARD",
+        description: "Job Card Search & Website",
+        icon: "💼",
+        links: [
+            {
+                title: "Job Card Search",
+                description: "Search Job Card",
+                url: "https://mnregaweb2.dord.gov.in/netnrega/writereaddata/state_out/jobcardreg_3216026008_eng.html"
+            },
+            {
+                title: "Job Card Website",
+                description: "MGNREGA Official Website",
+                url: "https://nrega.dord.gov.in/MGNREGA_new/Nrega_home.aspx"
+            }
+        ]
+    },
 
+    {
+        name: "Electricity Bill Pay",
+        description: "WBSEDCL Bill Payment & Services",
+        icon: "💡",
+        links: [
+            {
+                title: "WBSEDCL",
+                description: "Electricity Services",
+                url: "https://www.wbsedcl.in/"
+            },
+            {
+                title: "Bill Pay",
+                description: "Online Electricity Bill",
+                url: "https://portal.wbsedcl.in/onlinepay/OnlineBillPay.jsp"
+            },
+            {
+                title: "Consumer Login",
+                description: "Consumer Account",
+                url: "https://portal.wbsedcl.in/ConsumerLogin/Consumer_Login.jsp"
+            },
+            {
+                title: "Payment Receipt",
+                description: "Download Receipt",
+                url: "https://portal.wbsedcl.in/webdynpro/resources/wbsedcl/wbpaymentreceipt/ViewPaymentReceipt"
+            },
+            {
+                title: "No Dues Certificate",
+                description: "Electricity No Dues",
+                url: "https://portal.wbsedcl.in/irj/go/km/docs/bills/IFRAME/NoDuesCertificate.html"
+            }
+        ]
+    },
 
-  {
-    name:"Aadhaar Service",
-    description:"Aadhaar Download, Update & Status",
-    icon:"🆔",
+    {
+        name: "Loan Payment / EMI",
+        description: "Bank Loan & EMI Payment",
+        icon: "🏦",
+        links: [
+            {
+                title: "HDFC Bank",
+                description: "EMI / Bank Services",
+                url: "https://www.hdfcbank.com/"
+            },
+            {
+                title: "SBI Loan Pay",
+                description: "SBI Online Services",
+                url: "https://www.onlinesbi.com/"
+            }
+        ]
+    },
 
-    links:[
-      {
-        title:"My Aadhaar Login",
-        description:"Aadhaar Online Services",
-        url:"https://myaadhaar.uidai.gov.in/"
-      },
-      {
-        title:"Verify Mobile / Email",
-        description:"Verify Aadhaar Details",
-        url:"https://myaadhaar.uidai.gov.in/verify-email-mobile/en"
-      },
-      {
-        title:"Check Status",
-        description:"Aadhaar Status",
-        url:"https://myaadhaar.uidai.gov.in/CheckAadhaarStatus/en"
-      },
-      {
-        title:"Aadhaar DBT Link",
-        description:"Bank DBT Services",
-        url:"https://www.npci.org.in/"
-      },
-      {
-        title:"Aadhaar Login",
-        description:"Aadhaar Portal Login",
-        url:"https://myaadhaar.uidai.gov.in/login"
-      }
-    ]
-  },
+    {
+        name: "Land Records",
+        description: "Khatian, Plot & Land Information",
+        icon: "🌍",
+        links: [
+            {
+                title: "Banglarbhumi",
+                description: "West Bengal Land Records",
+                url: "https://banglarbhumi.gov.in/"
+            }
+        ]
+    },
 
+    {
+        name: "Caste Certificate",
+        description: "SC / ST / OBC Apply & Download",
+        icon: "📜",
+        links: [
+            {
+                title: "OBC Apply",
+                description: "OBC Certificate Apply",
+                url: "https://castcertificatewb.gov.in/application_revalidate"
+            },
+            {
+                title: "SC / ST Apply",
+                description: "SC/ST Certificate Apply",
+                url: "https://castcertificatewb.gov.in/application"
+            },
+            {
+                title: "SC / ST Search",
+                description: "Search Application",
+                url: "https://castcertificatewb.gov.in/searchapplication/viewcertificatedetails"
+            },
+            {
+                title: "OBC Search",
+                description: "Search Application",
+                url: "https://castcertificatewb.gov.in/searchapplication/viewcertificatedetails"
+            },
+            {
+                title: "SC / ST Download",
+                description: "Download Certificate",
+                url: "https://castcertificatewb.gov.in/downlaodsigncertificate"
+            },
+            {
+                title: "OBC Download",
+                description: "Download Certificate",
+                url: "https://castcertificatewb.gov.in/downlaod_signcertificate"
+            },
+            {
+                title: "Caste Portal",
+                description: "Official Portal",
+                url: "https://castcertificatewb.gov.in/"
+            }
+        ]
+    },
 
-  {
-    name:"Ration Card Service",
-    description:"New Apply, Update, Download & Status",
-    icon:"🍚",
+    {
+        name: "Online Work Services",
+        description: "Freelance & Online Document Services",
+        icon: "💻",
+        links: [
+            {
+                title: "Upwork",
+                description: "Freelance Work",
+                url: "https://www.upwork.com/"
+            },
+            {
+                title: "Jana Online Service",
+                description: "Online Form & Document Help",
+                url: "https://www.janaonlineservice.in/"
+            }
+        ]
+    },
 
-    links:[
-      {
-        title:"Apply New",
-        description:"New Ration Card",
-        url:"https://wbpds.wb.gov.in/rcmsnew/AadhaarAuthenticationLogin/Index"
-      },
-      {
-        title:"Update Information",
-        description:"Ration Card Correction",
-        url:"https://wbpds.wb.gov.in/Benificiary_Deatils_Update_by_Aadhaar.aspx"
-      },
-      {
-        title:"Download",
-        description:"Ration Card Download",
-        url:"https://wbpds.wb.gov.in/E_Card_Download.aspx"
-      },
-      {
-        title:"Aadhaar Link",
-        description:"Ration Aadhaar Link",
-        url:"https://wbpds.wb.gov.in/Ekyc_otp.aspx"
-      },
-      {
-        title:"Status Check",
-        description:"Application Status",
-        url:"https://wbpds.wb.gov.in/CheckApplicationStatus.aspx"
-      }
-    ]
-  },
+    {
+        name: "Government Schemes",
+        description: "Government Scheme Online Services",
+        icon: "🏛️",
+        links: [
+            {
+                title: "Family Level Data Collection Portal",
+                description: "West Bengal Government",
+                url: "https://socialsecurity.wb.gov.in/"
+            },
+            {
+                title: "Yuba Sathi",
+                description: "Banglar Yuba Sathi",
+                url: "https://yubasathi.wb.gov.in/"
+            },
+            {
+                title: "Ayushman Card",
+                description: "Ayushman Bharat",
+                url: "https://beneficiary.nha.gov.in/"
+            }
+        ]
+    },
 
+    {
+        name: "Driving Licence",
+        description: "Driving Licence Online Services",
+        icon: "🚗",
+        links: [
+            {
+                title: "DL Mobile Number Update",
+                description: "Update Driving Licence Mobile Number",
+                url: "https://sarathi.parivahan.gov.in/sarathiservice/mobNumUpdpub.do"
+            },
+            {
+                title: "New DL Apply",
+                description: "Driving Licence Apply Portal",
+                url: "https://sarathi.parivahan.gov.in/sarathiservice/stateSelection.do"
+            }
+        ]
+    },
 
-  {
-    name:"Train Details Service",
-    description:"IRCTC, PNR & Train Information",
-    icon:"🚆",
+    {
+        name: "RC Service (Registration Certificate)",
+        description: "Vehicle Registration Certificate Services",
+        icon: "🚘",
+        links: [
+            {
+                title: "RC Mobile Number Update",
+                description: "Update RC Mobile Number",
+                url: "https://vahan.parivahan.gov.in/mobileupdate/vahan/ui/statevalidation/editMobileNumber.xhtml"
+            },
+            {
+                title: "Owner Details",
+                description: "RC Owner Details",
+                url: "https://vahan.parivahan.gov.in/nrservices/faces/user/citizen/citizenlogin.xhtml"
+            },
+            {
+                title: "Print Registration Certificate",
+                description: "Print Registration Certificate",
+                url: "https://vahan.parivahan.gov.in/vahanservice/vahan/ui/statevalidation/homepage.xhtml"
+            }
+        ]
+    },
 
-    links:[
-      {
-        title:"IRCTC",
-        description:"Train Booking",
-        url:"https://www.irctc.co.in/"
-      },
-      {
-        title:"PNR Status",
-        description:"Check PNR Status",
-        url:"https://indianrail.gov.in/enquiry/PNR/PnrEnquiry.html"
-      }
-    ]
-  },
+    {
+        name: "Birth & Death Certificate",
+        description: "Birth & Death Certificate Online Services",
+        icon: "📜",
+        links: [
+            {
+                title: "CRS Portal",
+                description: "Apply for Birth & Death Certificate Online",
+                url: "https://dc.crsorgi.gov.in/crs/home"
+            },
+            {
+                title: "Janma Mrityutathya",
+                description: "West Bengal Birth & Death Services",
+                url: "https://janma-mrityutathya.wb.gov.in/"
+            }
+        ]
+    },
 
+    {
+        name: "Fancy Mobile Number",
+        description: "Jio, Airtel & Vi Fancy / VIP Mobile Number",
+        icon: "📱",
+        links: [
+            {
+                title: "Jio Fancy / VIP Number",
+                description: "Choose Jio Fancy Mobile Number",
+                url: "https://www.jio.com/selfcare/choice-number/"
+            },
+            {
+                title: "Airtel Fancy / VIP Number",
+                description: "Airtel Fancy Mobile Number",
+                url: "https://www.airtel.in/blog/postpaid/fancy-phone-number-with-postpaid-sim-connection/"
+            },
+            {
+                title: "Vi Fancy / VIP Number",
+                description: "Choose Vi Fancy Mobile Number",
+                url: "https://www.myvi.in/new-connection/choose-your-fancy-mobile-numbers-online"
+            }
+        ]
+    },
 
-  {
-    name:"Bus Details Checking",
-    description:"Online & Intercity Bus Booking",
-    icon:"🚌",
-
-    links:[
-      {
-        title:"RedBus",
-        description:"Online Bus Booking",
-        url:"https://www.redbus.in/"
-      },
-      {
-        title:"State Transport",
-        description:"West Bengal Transport",
-        url:"https://www.wbtransport.gov.in/"
-      }
-    ]
-  },
-
-
-  {
-    name:"JOB CARD",
-    description:"Job Card Search & Website",
-    icon:"💼",
-
-    links:[
-      {
-        title:"Job Card Search",
-        description:"Search Job Card",
-        url:"https://mnregaweb2.dord.gov.in/netnrega/writereaddata/state_out/jobcardreg_3216026008_eng.html"
-      },
-      {
-        title:"Job Card Website",
-        description:"MGNREGA Official Website",
-        url:"https://nrega.dord.gov.in/MGNREGA_new/Nrega_home.aspx"
-      }
-    ]
-  },
-
-
-  {
-    name:"Electricity Bill Pay",
-    description:"WBSEDCL Bill Payment & Services",
-    icon:"💡",
-
-    links:[
-      {
-        title:"WBSEDCL",
-        description:"Electricity Services",
-        url:"https://www.wbsedcl.in/"
-      },
-      {
-        title:"Bill Pay",
-        description:"Online Electricity Bill",
-        url:"https://portal.wbsedcl.in/onlinepay/OnlineBillPay.jsp"
-      },
-      {
-        title:"Consumer Login",
-        description:"Consumer Account",
-        url:"https://portal.wbsedcl.in/ConsumerLogin/Consumer_Login.jsp"
-      },
-      {
-        title:"Payment Receipt",
-        description:"Download Receipt",
-        url:"https://portal.wbsedcl.in/webdynpro/resources/wbsedcl/wbpaymentreceipt/ViewPaymentReceipt"
-      },
-      {
-        title:"No Dues Certificate",
-        description:"Electricity No Dues",
-        url:"https://portal.wbsedcl.in/irj/go/km/docs/bills/IFRAME/NoDuesCertificate.html"
-      }
-    ]
-  },
-
-
-  {
-    name:"Loan Payment / EMI",
-    description:"Bank Loan & EMI Payment",
-    icon:"🏦",
-
-    links:[
-      {
-        title:"HDFC Bank",
-        description:"EMI / Bank Services",
-        url:"https://www.hdfcbank.com/"
-      },
-      {
-        title:"SBI Loan Pay",
-        description:"SBI Online Services",
-        url:"https://www.onlinesbi.com/"
-      }
-    ]
-  },
-
-
-  {
-    name:"Land Records",
-    description:"Khatian, Plot & Land Information",
-    icon:"🌍",
-
-    links:[
-      {
-        title:"Banglarbhumi",
-        description:"West Bengal Land Records",
-        url:"https://banglarbhumi.gov.in/"
-      }
-    ]
-  },
-
-
-  {
-    name:"Caste Certificate",
-    description:"SC / ST / OBC Apply & Download",
-    icon:"📜",
-
-    links:[
-      {
-        title:"OBC Apply",
-        description:"OBC Certificate Apply",
-        url:"https://castcertificatewb.gov.in/application_revalidate"
-      },
-      {
-        title:"SC / ST Apply",
-        description:"SC/ST Certificate Apply",
-        url:"https://castcertificatewb.gov.in/application"
-      },
-      {
-        title:"SC / ST Search",
-        description:"Search Application",
-        url:"https://castcertificatewb.gov.in/searchapplication/viewcertificatedetails"
-      },
-      {
-        title:"OBC Search",
-        description:"Search Application",
-        url:"https://castcertificatewb.gov.in/searchapplication/viewcertificatedetails"
-      },
-      {
-        title:"SC / ST Download",
-        description:"Download Certificate",
-        url:"https://castcertificatewb.gov.in/downlaodsigncertificate"
-      },
-      {
-        title:"OBC Download",
-        description:"Download Certificate",
-        url:"https://castcertificatewb.gov.in/downlaod_signcertificate"
-      },
-      {
-        title:"Caste Portal",
-        description:"Official Portal",
-        url:"https://castcertificatewb.gov.in/"
-      }
-    ]
-  },
-
-
-  {
-    name:"Online Work Services",
-    description:"Freelance & Online Document Services",
-    icon:"💻",
-
-    links:[
-      {
-        title:"Upwork",
-        description:"Freelance Work",
-        url:"https://www.upwork.com/"
-      },
-      {
-        title:"Jana Online Service",
-        description:"Online Form & Document Help",
-        url:"https://www.janaonlineservice.in/"
-      }
-    ]
-  },
-
-
-  {
-    name:"Government Schemes",
-    description:"Government Scheme Online Services",
-    icon:"🏛️",
-
-    links:[
-      {
-        title:"Anandadhara / Scheme Portal",
-        description:"West Bengal Government",
-        url:"https://socialsecurity.wb.gov.in/"
-      },
-      {
-        title:"Yuba Sathi",
-        description:"Banglar Yuba Sathi",
-        url:"https://yubasathi.wb.gov.in/"
-      },
-      {
-        title:"Ayushman Card",
-        description:"Ayushman Bharat",
-        url:"https://beneficiary.nha.gov.in/"
-      }
-    ]
-  }
+    {
+        name: "GST Verification",
+        description: "Government Online GST Services",
+        icon: "🏛️",
+        links: [
+            {
+                title: "Find GST Number",
+                description: "Find GST Number by PAN",
+                url: "https://services.gst.gov.in/services/searchtpbypan"
+            },
+            {
+                title: "Search Composition Taxpayer",
+                description: "Search Composition Taxpayer",
+                url: "https://services.gst.gov.in/services/listoftaxpayer"
+            },
+            {
+                title: "New GST Apply",
+                description: "New GST Registration",
+                url: "https://reg.gst.gov.in/registration/"
+            },
+            {
+                title: "Track GST Application",
+                description: "Track GST Application Status",
+                url: "https://services.gst.gov.in/services/arnstatus"
+            },
+            {
+                title: "Create GST Challan",
+                description: "Create Challan for GST Payment",
+                url: "https://payment.gst.gov.in/payment/"
+            },
+            {
+                title: "Track Payment Status",
+                description: "Track GST Payment Status",
+                url: "https://payment.gst.gov.in/payment/trackpayment"
+            },
+            {
+                title: "Track Application Status",
+                description: "Service Track Application Status",
+                url: "https://services.gst.gov.in/services/trackstatus"
+            }
+        ]
+    }
 
 ];
 
@@ -977,275 +1074,302 @@ const COMMON_ONLINE_SERVICES = [
 ========================================= */
 
 const grid =
-  document.getElementById("commonServiceGrid");
+    document.getElementById("commonServiceGrid");
 
 const count =
-  document.getElementById("commonServiceCount");
+    document.getElementById("commonServiceCount");
 
 const search =
-  document.getElementById("commonServiceSearch");
+    document.getElementById("commonServiceSearch");
 
 const noResult =
-  document.getElementById("commonServiceNoResult");
+    document.getElementById("commonServiceNoResult");
 
 const modal =
-  document.getElementById("commonServiceModal");
+    document.getElementById("commonServiceModal");
 
 const modalClose =
-  document.getElementById("commonModalClose");
+    document.getElementById("commonModalClose");
 
 const modalIcon =
-  document.getElementById("commonModalIcon");
+    document.getElementById("commonModalIcon");
 
 const modalTitle =
-  document.getElementById("commonModalTitle");
+    document.getElementById("commonModalTitle");
 
 const modalDescription =
-  document.getElementById("commonModalDescription");
+    document.getElementById("commonModalDescription");
 
 const modalLinks =
-  document.getElementById("commonServiceLinks");
+    document.getElementById("commonServiceLinks");
 
 const callButton =
-  document.getElementById("commonCallButton");
+    document.getElementById("commonCallButton");
 
 const whatsappButton =
-  document.getElementById("commonWhatsappButton");
+    document.getElementById("commonWhatsappButton");
 
 
 /* =========================================
    RENDER SERVICES
 ========================================= */
 
-function renderServices(list){
+function renderServices(list) {
 
-  grid.innerHTML = "";
+    grid.innerHTML = "";
 
-  count.textContent =
-    list.length + " Services Available";
+    count.textContent =
+        list.length + " Services Available";
 
-  if(!list.length){
+    if (!list.length) {
 
-    noResult.style.display = "block";
-    return;
+        noResult.style.display = "block";
 
-  }
+        return;
+    }
 
-  noResult.style.display = "none";
-
-
-  list.forEach(service => {
-
-    const card =
-      document.createElement("article");
-
-    card.className =
-      "common-service-card";
+    noResult.style.display = "none";
 
 
-    const icon =
-      document.createElement("div");
+    list.forEach(service => {
 
-    icon.className =
-      "common-service-icon";
+        const card =
+            document.createElement("article");
 
-    icon.textContent =
-      service.icon;
-
-
-    const title =
-      document.createElement("h3");
-
-    title.textContent =
-      service.name;
+        card.className =
+            "common-service-card";
 
 
-    const description =
-      document.createElement("p");
+        const icon =
+            document.createElement("div");
 
-    description.textContent =
-      service.description;
+        icon.className =
+            "common-service-icon";
 
-
-    const footer =
-      document.createElement("div");
-
-    footer.className =
-      "common-service-card-footer";
+        icon.textContent =
+            service.icon || "⚡";
 
 
-    const view =
-      document.createElement("span");
+        const title =
+            document.createElement("h3");
 
-    view.textContent =
-      "View Options";
-
-
-    const arrow =
-      document.createElement("span");
-
-    arrow.className =
-      "common-service-arrow";
-
-    arrow.textContent =
-      "→";
+        title.textContent =
+            service.name;
 
 
-    footer.appendChild(view);
-    footer.appendChild(arrow);
+        const description =
+            document.createElement("p");
+
+        description.textContent =
+            service.description;
 
 
-    card.appendChild(icon);
-    card.appendChild(title);
-    card.appendChild(description);
-    card.appendChild(footer);
+        const footer =
+            document.createElement("div");
+
+        footer.className =
+            "common-service-card-footer";
 
 
-    card.addEventListener(
-      "click",
-      () => openService(service)
+        const view =
+            document.createElement("span");
+
+        view.textContent =
+            "View Options";
+
+
+        const arrow =
+            document.createElement("span");
+
+        arrow.className =
+            "common-service-arrow";
+
+        arrow.textContent =
+            "→";
+
+
+        footer.appendChild(view);
+        footer.appendChild(arrow);
+
+        card.appendChild(icon);
+        card.appendChild(title);
+        card.appendChild(description);
+        card.appendChild(footer);
+
+
+        card.addEventListener(
+            "click",
+            function() {
+                openService(service);
+            }
+        );
+
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================
+   OPEN SERVICE MODAL
+========================================= */
+
+function openService(service) {
+
+    modalIcon.textContent =
+        service.icon || "⚡";
+
+    modalTitle.textContent =
+        service.name;
+
+    modalDescription.textContent =
+        service.description;
+
+
+    modalLinks.innerHTML = "";
+
+
+    if (
+        !service.links ||
+        service.links.length === 0
+    ) {
+
+        modalLinks.innerHTML = `
+            <div style="
+                grid-column:1/-1;
+                text-align:center;
+                padding:25px;
+                color:#71828a;
+            ">
+                No service option available.
+            </div>
+        `;
+
+    } else {
+
+        service.links.forEach(link => {
+
+            const a =
+                document.createElement("a");
+
+            a.className =
+                "common-service-link";
+
+            a.href =
+                link.url || "#";
+
+            a.target =
+                "_blank";
+
+            a.rel =
+                "noopener noreferrer";
+
+
+            const strong =
+                document.createElement("strong");
+
+            strong.textContent =
+                link.title || "Open Service";
+
+
+            const span =
+                document.createElement("span");
+
+            span.textContent =
+                link.description || "";
+
+
+            a.appendChild(strong);
+            a.appendChild(span);
+
+            modalLinks.appendChild(a);
+
+        });
+
+    }
+
+
+    callButton.href =
+        "tel:" + COMMON_SERVICE_PHONE;
+
+
+    const message =
+        "Hello, I want help regarding " +
+        service.name;
+
+    whatsappButton.href =
+        "https://wa.me/" +
+        COMMON_SERVICE_WHATSAPP +
+        "?text=" +
+        encodeURIComponent(message);
+
+
+    modal.classList.add("active");
+
+    document.body.style.overflow =
+        "hidden";
+}
+
+
+/* =========================================
+   CLOSE MODAL
+========================================= */
+
+function closeService() {
+
+    modal.classList.remove("active");
+
+    document.body.style.overflow = "";
+}
+
+
+if (modalClose) {
+
+    modalClose.addEventListener(
+        "click",
+        closeService
     );
 
+}
 
-    grid.appendChild(card);
 
-  });
+if (modal) {
+
+    modal.addEventListener(
+        "click",
+        function(event) {
+
+            if (event.target === modal) {
+                closeService();
+            }
+
+        }
+    );
 
 }
 
 
 /* =========================================
-   OPEN SERVICE
+   ESC KEY
 ========================================= */
-
-function openService(service){
-
-  modalIcon.textContent =
-    service.icon;
-
-  modalTitle.textContent =
-    service.name;
-
-  modalDescription.textContent =
-    service.description;
-
-
-  modalLinks.innerHTML = "";
-
-
-  service.links.forEach(link => {
-
-    const a =
-      document.createElement("a");
-
-    a.className =
-      "common-service-link";
-
-    a.href =
-      link.url;
-
-    a.target =
-      "_blank";
-
-    a.rel =
-      "noopener noreferrer";
-
-
-    const strong =
-      document.createElement("strong");
-
-    strong.textContent =
-      link.title;
-
-
-    const span =
-      document.createElement("span");
-
-    span.textContent =
-      link.description;
-
-
-    a.appendChild(strong);
-    a.appendChild(span);
-
-    modalLinks.appendChild(a);
-
-  });
-
-
-  callButton.href =
-    "tel:" + COMMON_SERVICE_PHONE;
-
-
-  const message =
-    "Hello, I want help regarding " +
-    service.name;
-
-
-  whatsappButton.href =
-    "https://wa.me/" +
-    COMMON_SERVICE_WHATSAPP +
-    "?text=" +
-    encodeURIComponent(message);
-
-
-  modal.classList.add("active");
-
-  document.body.style.overflow =
-    "hidden";
-}
-
-
-/* =========================================
-   CLOSE SERVICE
-========================================= */
-
-function closeService(){
-
-  modal.classList.remove("active");
-
-  document.body.style.overflow = "";
-}
-
-
-/* =========================================
-   CLOSE EVENTS
-========================================= */
-
-modalClose.addEventListener(
-  "click",
-  closeService
-);
-
-
-modal.addEventListener(
-  "click",
-  function(event){
-
-    if(event.target === modal){
-
-      closeService();
-
-    }
-
-  }
-);
-
 
 document.addEventListener(
-  "keydown",
-  function(event){
+    "keydown",
+    function(event) {
 
-    if(
-      event.key === "Escape" &&
-      modal.classList.contains("active")
-    ){
+        if (
+            event.key === "Escape" &&
+            modal &&
+            modal.classList.contains("active")
+        ) {
 
-      closeService();
+            closeService();
+
+        }
 
     }
-
-  }
 );
 
 
@@ -1253,48 +1377,102 @@ document.addEventListener(
    SEARCH
 ========================================= */
 
-search.addEventListener(
-  "input",
-  function(){
+if (search) {
 
-    const value =
-      this.value
-        .trim()
-        .toLowerCase();
+    search.addEventListener(
+        "input",
+        function() {
 
-
-    const filtered =
-      COMMON_ONLINE_SERVICES.filter(
-        service =>
-
-          service.name
-            .toLowerCase()
-            .includes(value)
-
-          ||
-
-          service.description
-            .toLowerCase()
-            .includes(value)
-
-      );
+            const value =
+                this.value
+                    .trim()
+                    .toLowerCase();
 
 
-    renderServices(filtered);
+            const filtered =
+                COMMON_ONLINE_SERVICES.filter(
+                    function(service) {
 
-  }
-);
+                        const name =
+                            String(
+                                service.name || ""
+                            ).toLowerCase();
+
+
+                        const description =
+                            String(
+                                service.description || ""
+                            ).toLowerCase();
+
+
+                        const links =
+                            (service.links || [])
+                                .map(
+                                    function(link) {
+
+                                        return (
+                                            String(
+                                                link.title || ""
+                                            ) +
+                                            " " +
+                                            String(
+                                                link.description || ""
+                                            )
+                                        ).toLowerCase();
+
+                                    }
+                                )
+                                .join(" ");
+
+
+                        return (
+                            name.includes(value) ||
+                            description.includes(value) ||
+                            links.includes(value)
+                        );
+
+                    }
+                );
+
+
+            renderServices(filtered);
+
+        }
+    );
+
+}
 
 
 /* =========================================
    START
 ========================================= */
 
-renderServices(
-  COMMON_ONLINE_SERVICES
-);
+function startCommonServices() {
+
+    renderServices(
+        COMMON_ONLINE_SERVICES
+    );
+
+}
+
+
+if (
+    document.readyState === "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        startCommonServices
+    );
+
+} else {
+
+    startCommonServices();
+
+}
 
 </script>
+
 
 </body>
 </html>
