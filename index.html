@@ -3,1476 +3,423 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Jana Online Service - Common Services</title>
-
+<meta name="theme-color" content="#007f8c">
+<meta name="description" content="Jana Online Service - Common Online Services and useful government portals.">
+<title>Jana Online Service | Common Online Services</title>
 <style>
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  font-family:Arial,"Noto Sans Bengali",sans-serif;
-  background:#f3f8fa;
-  color:#18343d;
-}
-
-/* ==============================
-   HEADER
-============================== */
-
-.common-header{
-  background:linear-gradient(135deg,#007d8b,#0097a7,#0085c7);
-  color:#fff;
-  padding:25px 15px;
-  text-align:center;
-}
-
-.common-header h1{
-  margin:0;
-  font-size:28px;
-}
-
-.common-header p{
-  margin:8px 0 0;
-  font-size:14px;
-  opacity:.9;
-}
-
-/* ==============================
-   MAIN
-============================== */
-
-.common-container{
-  max-width:1100px;
-  margin:auto;
-  padding:20px 15px 40px;
-}
-
-/* Search */
-
-.common-toolbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:20px;
-}
-
-.common-count{
-  font-weight:700;
-  color:#007b89;
-}
-
-.common-search{
-  width:300px;
-  max-width:100%;
-  padding:12px 15px;
-  border:1px solid #cbdde2;
-  border-radius:12px;
-  outline:none;
-  font-size:14px;
-  background:#fff;
-}
-
-.common-search:focus{
-  border-color:#0097a7;
-  box-shadow:0 0 0 3px rgba(0,151,167,.10);
-}
-
-/* ==============================
-   SERVICE GRID
-============================== */
-
-.common-service-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-}
-
-.common-service-card{
-  background:#fff;
-  border:1px solid #e1ecef;
-  border-radius:16px;
-  padding:18px;
-  cursor:pointer;
-  transition:.25s;
-  box-shadow:0 5px 18px rgba(0,80,100,.06);
-}
-
-.common-service-card:hover{
-  transform:translateY(-4px);
-  border-color:#8dd4dc;
-  box-shadow:0 12px 30px rgba(0,130,145,.13);
-}
-
-.common-service-icon{
-  width:50px;
-  height:50px;
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#e7f8fa;
-  font-size:25px;
-  margin-bottom:12px;
-}
-
-.common-service-card h3{
-  margin:0 0 7px;
-  color:#007d8b;
-  font-size:16px;
-}
-
-.common-service-card p{
-  margin:0;
-  color:#71828a;
-  font-size:12px;
-  line-height:1.5;
-}
-
-.common-service-card-footer{
-  margin-top:15px;
-  padding-top:12px;
-  border-top:1px solid #edf2f3;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.common-service-card-footer span:first-child{
-  color:#007d8b;
-  font-size:12px;
-  font-weight:700;
-}
-
-.common-service-arrow{
-  color:#0097a7;
-  font-size:20px;
-}
-
-/* No result */
-
-.common-no-result{
-  display:none;
-  text-align:center;
-  padding:40px 15px;
-  color:#7c8b91;
-}
-
-/* ==============================
-   MODAL
-============================== */
-
-.common-modal-overlay{
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-  background:rgba(8,28,39,.70);
-  backdrop-filter:blur(5px);
-}
-
-.common-modal-overlay.active{
-  display:flex;
-}
-
-.common-modal{
-  width:100%;
-  max-width:760px;
-  max-height:90vh;
-  overflow:hidden;
-  background:#fff;
-  border-radius:20px;
-  box-shadow:0 25px 70px rgba(0,0,0,.3);
-}
-
-/* Modal Header */
-
-.common-modal-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  padding:19px 21px;
-  color:#fff;
-  background:linear-gradient(135deg,#007d8b,#00a5b5);
-}
-
-.common-modal-title-area{
-  display:flex;
-  align-items:center;
-  gap:13px;
-}
-
-.common-modal-icon{
-  width:47px;
-  height:47px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:13px;
-  background:rgba(255,255,255,.17);
-  font-size:22px;
-}
-
-.common-modal-header h3{
-  margin:0 0 3px;
-  font-size:18px;
-}
-
-.common-modal-header p{
-  margin:0;
-  font-size:12px;
-  opacity:.85;
-}
-
-.common-modal-close{
-  width:38px;
-  height:38px;
-  border:0;
-  border-radius:50%;
-  background:rgba(255,255,255,.14);
-  color:#fff;
-  font-size:22px;
-  cursor:pointer;
-}
-
-/* Modal Body */
-
-.common-modal-body{
-  padding:20px;
-  max-height:55vh;
-  overflow-y:auto;
-}
-
-.common-modal-label{
-  color:#526875;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:12px;
-}
-
-.common-service-links{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-
-.common-service-link{
-  display:block;
-  text-decoration:none;
-  padding:15px;
-  border:1px solid #e2edf1;
-  border-radius:13px;
-  background:#f9fcfd;
-  transition:.22s;
-}
-
-.common-service-link:hover{
-  transform:translateY(-3px);
-  background:#fff;
-  border-color:#9edbe1;
-  box-shadow:0 8px 20px rgba(0,130,145,.10);
-}
-
-.common-service-link strong{
-  display:block;
-  color:#007f8d;
-  font-size:13px;
-  margin-bottom:5px;
-}
-
-.common-service-link span{
-  display:block;
-  color:#748591;
-  font-size:11px;
-  line-height:1.4;
-}
-
-/* Footer */
-
-.common-modal-footer{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:14px 19px;
-  border-top:1px solid #e8eef1;
-  background:#fbfdfe;
-  flex-wrap:wrap;
-}
-
-.common-contact-buttons{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.common-contact-buttons a{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  text-decoration:none;
-  padding:10px 14px;
-  border-radius:10px;
-  font-size:13px;
-  font-weight:700;
-}
-
-.common-call-button{
-  color:#007989;
-  background:#e5f7f9;
-}
-
-.common-whatsapp-button{
-  color:#fff;
-  background:#0097a7;
-}
-
-.common-modal-footer small{
-  color:#7b8c96;
-  font-size:11px;
-}
-
-/* ==============================
-   RESPONSIVE
-============================== */
-
-@media(max-width:900px){
-
-  .common-service-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .common-service-links{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-
-@media(max-width:600px){
-
-  .common-toolbar{
-    display:block;
-  }
-
-  .common-search{
-    width:100%;
-    margin-top:10px;
-  }
-
-  .common-service-grid{
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-  }
-
-  .common-service-card{
-    padding:14px;
-  }
-
-  .common-service-icon{
-    width:43px;
-    height:43px;
-    font-size:21px;
-  }
-
-  .common-service-card h3{
-    font-size:14px;
-  }
-
-  .common-service-card p{
-    font-size:11px;
-  }
-
-  .common-service-links{
-    grid-template-columns:1fr;
-  }
-
-  .common-modal-footer{
-    display:block;
-  }
-
-  .common-modal-footer small{
-    display:block;
-    margin-top:10px;
-  }
-}
-
-@media(max-width:420px){
-
-  .common-service-card h3{
-    font-size:13px;
-  }
-
-  .common-service-card p{
-    font-size:10.5px;
-  }
-
-  .common-service-card-footer{
-    margin-top:10px;
-  }
-
-  .common-service-card-footer span:first-child{
-    font-size:10px;
-  }
-}
+:root{--teal:#007f8c;--deep:#005c6b;--aqua:#00b8c4;--blue:#087de0;--ink:#173b46;--muted:#718590;--line:#e2edf1;--page:#f3f8fc;--shadow:0 8px 28px rgba(20,75,100,.075);--lift:0 18px 42px rgba(0,119,145,.17)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,"Noto Sans Bengali",sans-serif;color:var(--ink);background:radial-gradient(ellipse at 0 0,rgba(0,184,196,.09),transparent 35%),radial-gradient(ellipse at 100% 20%,rgba(8,125,224,.07),transparent 32%),var(--page);-webkit-font-smoothing:antialiased}
+button,input,a{font:inherit}button,a{-webkit-tap-highlight-color:transparent}
+.common-header{position:relative;isolation:isolate;overflow:hidden;padding:44px 18px 39px;text-align:center;color:#fff;background:linear-gradient(120deg,#005d70,#008e9e 52%,#087de0);box-shadow:0 12px 35px rgba(0,104,130,.19)}
+.common-header:before,.common-header:after{content:"";position:absolute;z-index:-1;border:1px solid #ffffff2e;border-radius:50%;pointer-events:none}
+.common-header:before{width:300px;height:300px;top:-190px;left:-65px;box-shadow:0 0 0 35px #ffffff09,0 0 0 70px #ffffff08}
+.common-header:after{width:260px;height:260px;right:-75px;bottom:-195px;box-shadow:0 0 0 30px #ffffff09,0 0 0 60px #ffffff08}
+.common-header h1{margin:0;font-size:clamp(24px,4vw,36px);line-height:1.3;font-weight:800;letter-spacing:-.6px;text-shadow:0 3px 15px #0002}
+.common-header p{max-width:700px;margin:12px auto 0;font-size:14px;line-height:1.8;color:#ffffffe8}
+.common-container{width:100%;max-width:1240px;margin:auto;padding:28px 22px 55px}
+.common-toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:24px;padding:15px 18px;border:1px solid #dcebf0;border-radius:18px;background:#ffffffdc;box-shadow:var(--shadow)}
+.common-count{display:flex;align-items:center;gap:9px;color:var(--teal);font-size:14px;font-weight:800}
+.common-count:before{content:"";width:9px;height:9px;flex-shrink:0;border-radius:50%;background:#08b68a;box-shadow:0 0 0 4px #08b68a20}
+.common-search{width:350px;max-width:100%;min-height:46px;padding:12px 16px;border:1px solid #dbe8ed;border-radius:13px;outline:none;color:var(--ink);background:#f8fbfd;font-size:14px;transition:.25s}
+.common-search::placeholder{color:#94a6af}.common-search:hover{border-color:#9bd8df;background:#fff}.common-search:focus{border-color:var(--aqua);background:#fff;box-shadow:0 0 0 4px #00b8c41f}
+.common-service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}
+.common-service-card{position:relative;isolation:isolate;min-width:0;overflow:hidden;padding:22px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:var(--shadow);cursor:pointer;outline:none;transition:transform .28s cubic-bezier(.2,.7,.3,1),border-color .28s,box-shadow .28s;animation:cardEnter .4s ease both}
+.common-service-card:before{content:"";position:absolute;z-index:-1;inset:0 0 auto;height:4px;background:linear-gradient(90deg,var(--aqua),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.common-service-card:after{content:"";position:absolute;z-index:-1;width:150px;height:150px;top:-90px;right:-80px;border-radius:50%;background:#00b8c412;transition:transform .35s,background .35s}
+.common-service-card:hover{transform:translateY(-7px);border-color:#83d3dc;box-shadow:var(--lift)}
+.common-service-card:hover:before,.common-service-card:focus-visible:before{transform:scaleX(1)}
+.common-service-card:hover:after{transform:scale(1.6);background:#087de015}
+.common-service-card:active{transform:translateY(-2px) scale(.985)}
+.common-service-card:focus-visible{border-color:var(--aqua);box-shadow:0 0 0 4px #00b8c42e}
+.common-service-icon{display:flex;align-items:center;justify-content:center;width:55px;height:55px;margin-bottom:17px;border:1px solid #d5f0f2;border-radius:17px;background:linear-gradient(145deg,#e5fbfc,#edf5ff);font-size:27px;transition:transform .3s,background .3s,box-shadow .3s}
+.common-service-card:hover .common-service-icon{transform:translateY(-2px) rotate(-4deg) scale(1.07);background:linear-gradient(145deg,#d2f8f7,#deebff);box-shadow:0 7px 18px #0097a71f}
+.common-service-card h3{margin:0 0 9px;color:#087889;font-size:16px;font-weight:800;line-height:1.5;overflow-wrap:anywhere;transition:color .25s}
+.common-service-card:hover h3{color:#0060a8}
+.common-service-card p{min-height:38px;margin:0;color:var(--muted);font-size:12.5px;line-height:1.7;overflow-wrap:anywhere}
+.common-service-card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:19px;padding-top:14px;border-top:1px solid #edf2f5}
+.common-service-card-footer span:first-child{color:var(--teal);font-size:12px;font-weight:800}
+.common-service-arrow{display:flex;align-items:center;justify-content:center;width:31px;height:31px;flex-shrink:0;border:1px solid #d8f0f1;border-radius:10px;color:var(--teal);background:#effbfc;font-size:19px;transition:transform .25s,background .25s,color .25s}
+.common-service-card:hover .common-service-arrow{transform:translateX(3px);color:#fff;background:linear-gradient(135deg,var(--teal),var(--blue))}
+@keyframes cardEnter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.common-no-result{display:none;margin-top:18px;padding:45px 18px;border:1px dashed #cbdfe6;border-radius:20px;text-align:center;color:var(--muted);background:#ffffffcc}
+.common-no-result h3{margin:0 0 9px;color:var(--ink);font-size:19px}.common-no-result p{margin:0;font-size:13px;line-height:1.7}
+.common-modal-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:18px;background:#051827a6;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,visibility .25s}
+.common-modal-overlay.active{opacity:1;visibility:visible;pointer-events:auto}
+.common-modal{display:flex;flex-direction:column;width:100%;max-width:780px;max-height:min(88vh,780px);overflow:hidden;border:1px solid #ffffffb3;border-radius:23px;background:#fff;box-shadow:0 30px 90px #0005;transform:translateY(20px) scale(.975);transition:transform .28s cubic-bezier(.2,.7,.3,1)}
+.common-modal-overlay.active .common-modal{transform:translateY(0) scale(1)}
+.common-modal-header{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-shrink:0;padding:20px 23px;color:#fff;background:linear-gradient(120deg,#006d7b,#009eaa 60%,#087de0)}
+.common-modal-title-area{display:flex;align-items:center;gap:13px;min-width:0}
+.common-modal-icon{display:flex;align-items:center;justify-content:center;width:49px;height:49px;flex-shrink:0;border:1px solid #ffffff33;border-radius:15px;background:#ffffff26;font-size:24px}
+.common-modal-header h3{margin:0 0 5px;font-size:18px;line-height:1.4;overflow-wrap:anywhere}.common-modal-header p{margin:0;color:#ffffffdf;font-size:12px;line-height:1.6}
+.common-modal-close{display:flex;align-items:center;justify-content:center;width:39px;height:39px;flex-shrink:0;border:1px solid #ffffff3b;border-radius:12px;color:#fff;background:#ffffff22;font-size:25px;cursor:pointer;transition:transform .2s,background .2s}
+.common-modal-close:hover{transform:rotate(90deg);background:#ffffff40}.common-modal-close:active{transform:scale(.9)}
+.common-modal-body{padding:23px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.common-modal-label{display:flex;align-items:center;gap:9px;margin-bottom:16px;color:#425c69;font-size:13px;font-weight:800}
+.common-modal-label:before{content:"";width:4px;height:18px;border-radius:5px;background:linear-gradient(var(--aqua),var(--blue))}
+.common-service-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.common-service-link{position:relative;display:block;min-width:0;padding:17px 15px;border:1px solid #e0ebf0;border-radius:15px;text-decoration:none;background:#f9fcfe;overflow-wrap:anywhere;transition:transform .23s,border-color .23s,box-shadow .23s,background .23s}
+.common-service-link:after{content:"↗";position:absolute;top:12px;right:12px;color:#8caab5;font-size:15px;transition:color .2s,transform .2s}
+.common-service-link:hover{transform:translateY(-3px);border-color:#82d3dc;background:#fff;box-shadow:0 9px 22px #007b921c}
+.common-service-link:hover:after{color:var(--teal);transform:translate(2px,-2px)}
+.common-service-link:focus-visible{outline:3px solid #00b8c440;outline-offset:2px}
+.common-service-link strong{display:block;padding-right:15px;margin-bottom:7px;color:#087889;font-size:13px;line-height:1.5}
+.common-service-link span{display:block;color:#718590;font-size:11.5px;line-height:1.65}
+.common-modal-footer{display:flex;align-items:center;justify-content:space-between;gap:13px;flex-shrink:0;padding:15px 21px;border-top:1px solid #e8eff3;background:#fbfdff}
+.common-contact-buttons{display:flex;flex-wrap:wrap;gap:9px}
+.common-contact-buttons a{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:41px;padding:10px 15px;border:1px solid transparent;border-radius:11px;font-size:12.5px;font-weight:800;text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s}
+.common-contact-buttons a:hover{transform:translateY(-2px);box-shadow:0 6px 16px #0064781f}.common-contact-buttons a:active{transform:scale(.96)}
+.common-call-button{color:#007b89;background:#e8f8fa;border-color:#d3eff2!important}.common-call-button:hover{background:#d7f3f6}
+.common-whatsapp-button{color:#fff;background:linear-gradient(120deg,#009b91,#00b894)}.common-whatsapp-button:hover{background:linear-gradient(120deg,#008a80,#009f80)}
+.common-modal-footer small{color:#81929c;font-size:11px;line-height:1.5}
+@media(max-width:950px){.common-service-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.common-service-links{grid-template-columns:repeat(2,minmax(0,1fr))}.common-container{padding-right:18px;padding-left:18px}}
+@media(max-width:600px){.common-header{padding:32px 16px 29px}.common-header h1{font-size:25px;letter-spacing:-.4px}.common-header p{margin-top:9px;font-size:12px}.common-container{padding:18px 12px 35px}.common-toolbar{display:flex;flex-direction:column;align-items:stretch;gap:13px;margin-bottom:17px;padding:14px;border-radius:16px}.common-count{font-size:13px}.common-search{width:100%;min-height:45px;font-size:13px}.common-service-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.common-service-card{padding:14px 12px;border-radius:16px}.common-service-icon{width:43px;height:43px;margin-bottom:12px;border-radius:13px;font-size:22px}.common-service-card h3{margin-bottom:6px;font-size:13px;line-height:1.5}.common-service-card p{min-height:44px;font-size:10.5px;line-height:1.6}.common-service-card-footer{gap:5px;margin-top:12px;padding-top:10px}.common-service-card-footer span:first-child{font-size:10px;line-height:1.4}.common-service-arrow{width:25px;height:25px;border-radius:8px;font-size:16px}.common-modal-overlay{align-items:flex-end;padding:0}.common-modal{width:100%;max-width:none;max-height:91dvh;border-radius:23px 23px 0 0;border-bottom:0;transform:translateY(30px)}.common-modal-overlay.active .common-modal{transform:translateY(0)}.common-modal-header{padding:16px}.common-modal-icon{width:43px;height:43px;font-size:21px}.common-modal-header h3{font-size:15px}.common-modal-header p{font-size:11px}.common-modal-body{padding:17px 14px;max-height:none}.common-service-links{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.common-service-link{padding:14px 11px;border-radius:12px}.common-service-link strong{font-size:12px}.common-service-link span{font-size:10.5px}.common-modal-footer{display:flex;flex-direction:column;align-items:stretch;padding:13px 14px calc(13px + env(safe-area-inset-bottom))}.common-contact-buttons{display:grid;grid-template-columns:1fr 1fr}.common-contact-buttons a{min-height:43px;padding:10px 8px;font-size:12px}.common-modal-footer small{text-align:center}}
+@media(max-width:360px){.common-header h1{font-size:22px}.common-container{padding-right:9px;padding-left:9px}.common-service-grid{gap:8px}.common-service-card{padding:12px 10px}.common-service-card h3{font-size:12px}.common-service-card p{font-size:10px}.common-service-links{gap:8px}.common-service-link{padding:12px 9px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
-
 <body>
-
-<!-- ==============================
-     HEADER
-============================== -->
-
 <header class="common-header">
   <h1>⚡ Common Online Services</h1>
   <p>এখানে নতুন Service Update প্রকাশ করা হবে। নতুন আপডেট পেতে নিয়মিত Follow করুন।</p>
 </header>
 
-
-<!-- ==============================
-     MAIN
-============================== -->
-
 <main class="common-container">
-
   <div class="common-toolbar">
-
-    <div
-      id="commonServiceCount"
-      class="common-count">
-      0 Services Available
-    </div>
-
-    <input
-      type="search"
-      id="commonServiceSearch"
-      class="common-search"
-      placeholder="🔎 Service Search করুন..."
-    >
-
+    <div id="commonServiceCount" class="common-count" aria-live="polite">0 Services Available</div>
+    <input type="search" id="commonServiceSearch" class="common-search" placeholder="🔎 Service Search করুন..." aria-label="Search services">
   </div>
-
-
-  <div
-    id="commonServiceGrid"
-    class="common-service-grid">
-  </div>
-
-
-  <div
-    id="commonServiceNoResult"
-    class="common-no-result">
-
+  <div id="commonServiceGrid" class="common-service-grid"></div>
+  <div id="commonServiceNoResult" class="common-no-result">
     <h3>😔 কোনো Service পাওয়া যায়নি</h3>
     <p>অন্য কোনো Service Name দিয়ে Search করুন।</p>
-
   </div>
-
 </main>
 
-
-<!-- ==============================
-     MODAL
-============================== -->
-
-<div
-  id="commonServiceModal"
-  class="common-modal-overlay">
-
-  <div class="common-modal">
-
+<div id="commonServiceModal" class="common-modal-overlay" aria-hidden="true">
+  <section class="common-modal" role="dialog" aria-modal="true" aria-labelledby="commonModalTitle" aria-describedby="commonModalDescription">
     <div class="common-modal-header">
-
       <div class="common-modal-title-area">
-
-        <div
-          id="commonModalIcon"
-          class="common-modal-icon">
-          ⚡
-        </div>
-
-        <div>
-
-          <h3 id="commonModalTitle">
-            Service
-          </h3>
-
-          <p id="commonModalDescription">
-            Select an option
-          </p>
-
-        </div>
-
+        <div id="commonModalIcon" class="common-modal-icon">⚡</div>
+        <div><h3 id="commonModalTitle">Service</h3><p id="commonModalDescription">Select an option</p></div>
       </div>
-
-      <button
-        type="button"
-        id="commonModalClose"
-        class="common-modal-close">
-        ×
-      </button>
-
+      <button type="button" id="commonModalClose" class="common-modal-close" aria-label="Close dialog">×</button>
     </div>
-
-
     <div class="common-modal-body">
-
-      <div class="common-modal-label">
-        Select Service Option
-      </div>
-
-      <div
-        id="commonServiceLinks"
-        class="common-service-links">
-      </div>
-
+      <div class="common-modal-label">Select Service Option</div>
+      <div id="commonServiceLinks" class="common-service-links"></div>
     </div>
-
-
     <div class="common-modal-footer">
-
       <div class="common-contact-buttons">
-
-        <a
-          href="#"
-          id="commonCallButton"
-          class="common-call-button">
-          📞 Call
-        </a>
-
-        <a
-          href="#"
-          id="commonWhatsappButton"
-          class="common-whatsapp-button"
-          target="_blank"
-          rel="noopener noreferrer">
-          💬 WhatsApp
-        </a>
-
+        <a href="tel:9907992247" id="commonCallButton" class="common-call-button">📞 Call</a>
+        <a href="#" id="commonWhatsappButton" class="common-whatsapp-button" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
       </div>
-
-      <small>
-        Links open in new tab
-      </small>
-
+      <small>Links open in new tab</small>
     </div>
-
-  </div>
-
+  </section>
 </div>
 
-
 <script>
+"use strict";
 
-/* =========================================
-   COMMON SERVICE CONTACT
-========================================= */
+/* শুধু এখানে আপনার Apps Script Deploy URL বসাবেন */
+const COMMON_SERVICE_API_URL = "https://script.google.com/macros/s/AKfycbw6SNpXopZ2xHlV1x2MVLtfbtP_JLvoGad0QC-aUH-I0Xr3datailH1YZLrODlTV-JD/exec";
 
 const COMMON_SERVICE_PHONE = "9907992247";
 const COMMON_SERVICE_WHATSAPP = "919907992247";
 
+let COMMON_ONLINE_SERVICES = [];
+let lastFocusedElement = null;
+let loadingServices = false;
 
-/* =========================================
-   COMMON ONLINE SERVICES
-========================================= */
-
-const COMMON_ONLINE_SERVICES = [
-
-    {
-        name: "UTI PAN Card Service",
-        description: "Apply, Correction, Download & PAN Status",
-        icon: "🪪",
-        links: [
-            {
-                title: "Apply PAN",
-                description: "New PAN Apply",
-                url: "https://www.pan.utiitsl.com/newA.html"
-            },
-            {
-                title: "Correction",
-                description: "PAN Correction",
-                url: "https://www.pan.utiitsl.com/PAN_ONLINE/addresschangeHome.action"
-            },
-            {
-                title: "Download",
-                description: "E-PAN Download",
-                url: "https://www.pan.utiitsl.com/PAN_ONLINE/ePANCardHome"
-            },
-            {
-                title: "PAN Status",
-                description: "Check PAN Status",
-                url: "https://www.trackpan.utiitsl.com/PANONLINE/forms/TrackPan/trackApp#forward"
-            },
-            {
-                title: "UTI Portal",
-                description: "Official Portal",
-                url: "https://www.pan.utiitsl.com/"
-            }
-        ]
-    },
-
-    {
-        name: "NSDL PAN Card Service",
-        description: "Apply, Correction, Download & PAN Status",
-        icon: "🪪",
-        links: [
-            {
-                title: "Apply PAN",
-                description: "New PAN Apply",
-                url: "https://onlineservices.proteantech.in/paam/endUserRegisterContact.html"
-            },
-            {
-                title: "Correction",
-                description: "PAN Correction",
-                url: "https://onlineservices.proteantech.in/paam/endUserAddressUpdate.html"
-            },
-            {
-                title: "Download",
-                description: "E-PAN Download",
-                url: "https://onlineservices.proteantech.in/paam/requestAndDownloadEPAN.html"
-            },
-            {
-                title: "PAN Status",
-                description: "Check PAN Status",
-                url: "https://tin.tin.proteantech.in/pantan/StatusTrack.html"
-            },
-            {
-                title: "NSDL Portal",
-                description: "Official Portal",
-                url: "https://onlineservices.proteantech.in/paam/endUserRegisterContact.html"
-            }
-        ]
-    },
-
-    {
-        name: "Voter Card Service",
-        description: "New Voter ID, Search Name & Electoral Roll",
-        icon: "🗳️",
-        links: [
-            {
-                title: "New Voter ID",
-                description: "New Voter Registration",
-                url: "https://voters.eci.gov.in/form6"
-            },
-            {
-                title: "Search Name",
-                description: "Search Your Name",
-                url: "https://electoralsearch.eci.gov.in/uesfmempmlkypo"
-            },
-            {
-                title: "Electoral Roll",
-                description: "Download Electoral Roll",
-                url: "https://voters.eci.gov.in/download-eroll"
-            }
-        ]
-    },
-
-    {
-        name: "Aadhaar Service",
-        description: "Aadhaar Download, Update & Status",
-        icon: "🆔",
-        links: [
-            {
-                title: "My Aadhaar Login",
-                description: "Aadhaar Online Services",
-                url: "https://myaadhaar.uidai.gov.in/"
-            },
-            {
-                title: "Verify Mobile / Email",
-                description: "Verify Aadhaar Details",
-                url: "https://myaadhaar.uidai.gov.in/verify-email-mobile/en"
-            },
-            {
-                title: "Check Status",
-                description: "Aadhaar Status",
-                url: "https://myaadhaar.uidai.gov.in/CheckAadhaarStatus/en"
-            },
-            {
-                title: "Aadhaar DBT Link",
-                description: "Bank DBT Services",
-                url: "https://www.npci.org.in/"
-            },
-            {
-                title: "Aadhaar Login",
-                description: "Aadhaar Portal Login",
-                url: "https://myaadhaar.uidai.gov.in/login"
-            }
-        ]
-    },
-
-    {
-        name: "Ration Card Service",
-        description: "New Apply, Update, Download & Status",
-        icon: "🍚",
-        links: [
-            {
-                title: "Apply New",
-                description: "New Ration Card",
-                url: "https://wbpds.wb.gov.in/rcmsnew/AadhaarAuthenticationLogin/Index"
-            },
-            {
-                title: "Update Information",
-                description: "Ration Card Correction",
-                url: "https://wbpds.wb.gov.in/Benificiary_Deatils_Update_by_Aadhaar.aspx"
-            },
-            {
-                title: "Download",
-                description: "Ration Card Download",
-                url: "https://wbpds.wb.gov.in/E_Card_Download.aspx"
-            },
-            {
-                title: "Aadhaar Link",
-                description: "Ration Aadhaar Link",
-                url: "https://wbpds.wb.gov.in/Ekyc_otp.aspx"
-            },
-            {
-                title: "Status Check",
-                description: "Application Status",
-                url: "https://wbpds.wb.gov.in/CheckApplicationStatus.aspx"
-            }
-        ]
-    },
-
-    {
-        name: "Train Details Service",
-        description: "IRCTC, PNR & Train Information",
-        icon: "🚆",
-        links: [
-            {
-                title: "IRCTC",
-                description: "Train Booking",
-                url: "https://www.irctc.co.in/"
-            },
-            {
-                title: "PNR Status",
-                description: "Check PNR Status",
-                url: "https://indianrail.gov.in/enquiry/PNR/PnrEnquiry.html"
-            }
-        ]
-    },
-
-    {
-        name: "Bus Details Checking",
-        description: "Online & Intercity Bus Booking",
-        icon: "🚌",
-        links: [
-            {
-                title: "RedBus",
-                description: "Online Bus Booking",
-                url: "https://www.redbus.in/"
-            },
-            {
-                title: "State Transport",
-                description: "West Bengal Transport",
-                url: "https://www.wbtransport.gov.in/"
-            }
-        ]
-    },
-
-    {
-        name: "JOB CARD",
-        description: "Job Card Search & Website",
-        icon: "💼",
-        links: [
-            {
-                title: "Job Card Search",
-                description: "Search Job Card",
-                url: "https://mnregaweb2.dord.gov.in/netnrega/writereaddata/state_out/jobcardreg_3216026008_eng.html"
-            },
-            {
-                title: "Job Card Website",
-                description: "MGNREGA Official Website",
-                url: "https://nrega.dord.gov.in/MGNREGA_new/Nrega_home.aspx"
-            }
-        ]
-    },
-
-    {
-        name: "Electricity Bill Pay",
-        description: "WBSEDCL Bill Payment & Services",
-        icon: "💡",
-        links: [
-            {
-                title: "WBSEDCL",
-                description: "Electricity Services",
-                url: "https://www.wbsedcl.in/"
-            },
-            {
-                title: "Bill Pay",
-                description: "Online Electricity Bill",
-                url: "https://portal.wbsedcl.in/onlinepay/OnlineBillPay.jsp"
-            },
-            {
-                title: "Consumer Login",
-                description: "Consumer Account",
-                url: "https://portal.wbsedcl.in/ConsumerLogin/Consumer_Login.jsp"
-            },
-            {
-                title: "Payment Receipt",
-                description: "Download Receipt",
-                url: "https://portal.wbsedcl.in/webdynpro/resources/wbsedcl/wbpaymentreceipt/ViewPaymentReceipt"
-            },
-            {
-                title: "No Dues Certificate",
-                description: "Electricity No Dues",
-                url: "https://portal.wbsedcl.in/irj/go/km/docs/bills/IFRAME/NoDuesCertificate.html"
-            }
-        ]
-    },
-
-    {
-        name: "Loan Payment / EMI",
-        description: "Bank Loan & EMI Payment",
-        icon: "🏦",
-        links: [
-            {
-                title: "HDFC Bank",
-                description: "EMI / Bank Services",
-                url: "https://www.hdfcbank.com/"
-            },
-            {
-                title: "SBI Loan Pay",
-                description: "SBI Online Services",
-                url: "https://www.onlinesbi.com/"
-            }
-        ]
-    },
-
-    {
-        name: "Land Records",
-        description: "Khatian, Plot & Land Information",
-        icon: "🌍",
-        links: [
-            {
-                title: "Banglarbhumi",
-                description: "West Bengal Land Records",
-                url: "https://banglarbhumi.gov.in/"
-            }
-        ]
-    },
-
-    {
-        name: "Caste Certificate",
-        description: "SC / ST / OBC Apply & Download",
-        icon: "📜",
-        links: [
-            {
-                title: "OBC Apply",
-                description: "OBC Certificate Apply",
-                url: "https://castcertificatewb.gov.in/application_revalidate"
-            },
-            {
-                title: "SC / ST Apply",
-                description: "SC/ST Certificate Apply",
-                url: "https://castcertificatewb.gov.in/application"
-            },
-            {
-                title: "SC / ST Search",
-                description: "Search Application",
-                url: "https://castcertificatewb.gov.in/searchapplication/viewcertificatedetails"
-            },
-            {
-                title: "OBC Search",
-                description: "Search Application",
-                url: "https://castcertificatewb.gov.in/searchapplication/viewcertificatedetails"
-            },
-            {
-                title: "SC / ST Download",
-                description: "Download Certificate",
-                url: "https://castcertificatewb.gov.in/downlaodsigncertificate"
-            },
-            {
-                title: "OBC Download",
-                description: "Download Certificate",
-                url: "https://castcertificatewb.gov.in/downlaod_signcertificate"
-            },
-            {
-                title: "Caste Portal",
-                description: "Official Portal",
-                url: "https://castcertificatewb.gov.in/"
-            }
-        ]
-    },
-
-    {
-        name: "Online Work Services",
-        description: "Freelance & Online Document Services",
-        icon: "💻",
-        links: [
-            {
-                title: "Upwork",
-                description: "Freelance Work",
-                url: "https://www.upwork.com/"
-            },
-            {
-                title: "Jana Online Service",
-                description: "Online Form & Document Help",
-                url: "https://www.janaonlineservice.in/"
-            }
-        ]
-    },
-
-    {
-        name: "Government Schemes",
-        description: "Government Scheme Online Services",
-        icon: "🏛️",
-        links: [
-            {
-                title: "Family Level Data Collection Portal",
-                description: "West Bengal Government",
-                url: "https://socialsecurity.wb.gov.in/"
-            },
-            {
-                title: "Yuba Sathi",
-                description: "Banglar Yuba Sathi",
-                url: "https://yubasathi.wb.gov.in/"
-            },
-            {
-                title: "Ayushman Card",
-                description: "Ayushman Bharat",
-                url: "https://beneficiary.nha.gov.in/"
-            }
-        ]
-    },
-
-    {
-        name: "Driving Licence",
-        description: "Driving Licence Online Services",
-        icon: "🚗",
-        links: [
-            {
-                title: "DL Mobile Number Update",
-                description: "Update Driving Licence Mobile Number",
-                url: "https://sarathi.parivahan.gov.in/sarathiservice/mobNumUpdpub.do"
-            },
-            {
-                title: "New DL Apply",
-                description: "Driving Licence Apply Portal",
-                url: "https://sarathi.parivahan.gov.in/sarathiservice/stateSelection.do"
-            }
-        ]
-    },
-
-    {
-        name: "RC Service (Registration Certificate)",
-        description: "Vehicle Registration Certificate Services",
-        icon: "🚘",
-        links: [
-            {
-                title: "RC Mobile Number Update",
-                description: "Update RC Mobile Number",
-                url: "https://vahan.parivahan.gov.in/mobileupdate/vahan/ui/statevalidation/editMobileNumber.xhtml"
-            },
-            {
-                title: "Owner Details",
-                description: "RC Owner Details",
-                url: "https://vahan.parivahan.gov.in/nrservices/faces/user/citizen/citizenlogin.xhtml"
-            },
-            {
-                title: "Print Registration Certificate",
-                description: "Print Registration Certificate",
-                url: "https://vahan.parivahan.gov.in/vahanservice/vahan/ui/statevalidation/homepage.xhtml"
-            }
-        ]
-    },
-
-    {
-        name: "Birth & Death Certificate",
-        description: "Birth & Death Certificate Online Services",
-        icon: "📜",
-        links: [
-            {
-                title: "CRS Portal",
-                description: "Apply for Birth & Death Certificate Online",
-                url: "https://dc.crsorgi.gov.in/crs/home"
-            },
-            {
-                title: "Janma Mrityutathya",
-                description: "West Bengal Birth & Death Services",
-                url: "https://janma-mrityutathya.wb.gov.in/"
-            }
-        ]
-    },
-
-    {
-        name: "Fancy Mobile Number",
-        description: "Jio, Airtel & Vi Fancy / VIP Mobile Number",
-        icon: "📱",
-        links: [
-            {
-                title: "Jio Fancy / VIP Number",
-                description: "Choose Jio Fancy Mobile Number",
-                url: "https://www.jio.com/selfcare/choice-number/"
-            },
-            {
-                title: "Airtel Fancy / VIP Number",
-                description: "Airtel Fancy Mobile Number",
-                url: "https://www.airtel.in/blog/postpaid/fancy-phone-number-with-postpaid-sim-connection/"
-            },
-            {
-                title: "Vi Fancy / VIP Number",
-                description: "Choose Vi Fancy Mobile Number",
-                url: "https://www.myvi.in/new-connection/choose-your-fancy-mobile-numbers-online"
-            }
-        ]
-    },
-
-    {
-        name: "GST Verification",
-        description: "Government Online GST Services",
-        icon: "🏛️",
-        links: [
-            {
-                title: "Find GST Number",
-                description: "Find GST Number by PAN",
-                url: "https://services.gst.gov.in/services/searchtpbypan"
-            },
-            {
-                title: "Search Composition Taxpayer",
-                description: "Search Composition Taxpayer",
-                url: "https://services.gst.gov.in/services/listoftaxpayer"
-            },
-            {
-                title: "New GST Apply",
-                description: "New GST Registration",
-                url: "https://reg.gst.gov.in/registration/"
-            },
-            {
-                title: "Track GST Application",
-                description: "Track GST Application Status",
-                url: "https://services.gst.gov.in/services/arnstatus"
-            },
-            {
-                title: "Create GST Challan",
-                description: "Create Challan for GST Payment",
-                url: "https://payment.gst.gov.in/payment/"
-            },
-            {
-                title: "Track Payment Status",
-                description: "Track GST Payment Status",
-                url: "https://payment.gst.gov.in/payment/trackpayment"
-            },
-            {
-                title: "Track Application Status",
-                description: "Service Track Application Status",
-                url: "https://services.gst.gov.in/services/trackstatus"
-            }
-        ]
-    }
-
-];
-
-
-/* =========================================
-   ELEMENTS
-========================================= */
-
-const grid =
-    document.getElementById("commonServiceGrid");
-
-const count =
-    document.getElementById("commonServiceCount");
-
-const search =
-    document.getElementById("commonServiceSearch");
-
-const noResult =
-    document.getElementById("commonServiceNoResult");
-
-const modal =
-    document.getElementById("commonServiceModal");
-
-const modalClose =
-    document.getElementById("commonModalClose");
-
-const modalIcon =
-    document.getElementById("commonModalIcon");
-
-const modalTitle =
-    document.getElementById("commonModalTitle");
-
-const modalDescription =
-    document.getElementById("commonModalDescription");
-
-const modalLinks =
-    document.getElementById("commonServiceLinks");
-
-const callButton =
-    document.getElementById("commonCallButton");
-
-const whatsappButton =
-    document.getElementById("commonWhatsappButton");
-
-
-/* =========================================
-   RENDER SERVICES
-========================================= */
+const grid = document.getElementById("commonServiceGrid");
+const count = document.getElementById("commonServiceCount");
+const search = document.getElementById("commonServiceSearch");
+const noResult = document.getElementById("commonServiceNoResult");
+const modal = document.getElementById("commonServiceModal");
+const modalClose = document.getElementById("commonModalClose");
+const modalIcon = document.getElementById("commonModalIcon");
+const modalTitle = document.getElementById("commonModalTitle");
+const modalDescription = document.getElementById("commonModalDescription");
+const modalLinks = document.getElementById("commonServiceLinks");
+const callButton = document.getElementById("commonCallButton");
+const whatsappButton = document.getElementById("commonWhatsappButton");
 
 function renderServices(list) {
+  grid.replaceChildren();
+  count.textContent = list.length + " Services Available";
+  noResult.style.display = list.length ? "none" : "block";
 
-    grid.innerHTML = "";
+  list.forEach((service, index) => {
+    const card = document.createElement("article");
+    card.className = "common-service-card";
+    card.style.animationDelay = Math.min(index * 25, 250) + "ms";
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", "Open " + service.name);
 
-    count.textContent =
-        list.length + " Services Available";
+    const icon = document.createElement("div");
+    icon.className = "common-service-icon";
+    icon.textContent = service.icon || "⚡";
 
-    if (!list.length) {
+    const title = document.createElement("h3");
+    title.textContent = service.name || "Online Service";
 
-        noResult.style.display = "block";
+    const description = document.createElement("p");
+    description.textContent =
+      service.description || "Explore available online options.";
 
-        return;
-    }
+    const footer = document.createElement("div");
+    footer.className = "common-service-card-footer";
 
-    noResult.style.display = "none";
+    const view = document.createElement("span");
+    view.textContent = "View Options";
 
+    const arrow = document.createElement("span");
+    arrow.className = "common-service-arrow";
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "→";
 
-    list.forEach(service => {
+    footer.append(view, arrow);
+    card.append(icon, title, description, footer);
 
-        const card =
-            document.createElement("article");
-
-        card.className =
-            "common-service-card";
-
-
-        const icon =
-            document.createElement("div");
-
-        icon.className =
-            "common-service-icon";
-
-        icon.textContent =
-            service.icon || "⚡";
-
-
-        const title =
-            document.createElement("h3");
-
-        title.textContent =
-            service.name;
-
-
-        const description =
-            document.createElement("p");
-
-        description.textContent =
-            service.description;
-
-
-        const footer =
-            document.createElement("div");
-
-        footer.className =
-            "common-service-card-footer";
-
-
-        const view =
-            document.createElement("span");
-
-        view.textContent =
-            "View Options";
-
-
-        const arrow =
-            document.createElement("span");
-
-        arrow.className =
-            "common-service-arrow";
-
-        arrow.textContent =
-            "→";
-
-
-        footer.appendChild(view);
-        footer.appendChild(arrow);
-
-        card.appendChild(icon);
-        card.appendChild(title);
-        card.appendChild(description);
-        card.appendChild(footer);
-
-
-        card.addEventListener(
-            "click",
-            function() {
-                openService(service);
-            }
-        );
-
-
-        grid.appendChild(card);
-
+    card.addEventListener("click", () => openService(service, card));
+    card.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openService(service, card);
+      }
     });
 
+    grid.appendChild(card);
+  });
 }
 
+function loadLiveServices() {
+  if (loadingServices) return;
 
-/* =========================================
-   OPEN SERVICE MODAL
-========================================= */
+  if (
+    !COMMON_SERVICE_API_URL ||
+    COMMON_SERVICE_API_URL === "PASTE_YOUR_DEPLOY_URL_HERE"
+  ) {
+    count.textContent = "Deploy URL Required";
+    noResult.style.display = "block";
+    noResult.querySelector("h3").textContent = "⚙️ API URL বসান";
+    noResult.querySelector("p").textContent =
+      "HTML কোডে COMMON_SERVICE_API_URL-এর জায়গায় Apps Script Web App URL বসান।";
+    return;
+  }
 
-function openService(service) {
+  loadingServices = true;
+  count.textContent = "Loading Services...";
+  noResult.style.display = "none";
 
-    modalIcon.textContent =
-        service.icon || "⚡";
+  const callbackName =
+    "josServicesCallback_" + Date.now() + "_" +
+    Math.floor(Math.random() * 100000);
 
-    modalTitle.textContent =
-        service.name;
+  const script = document.createElement("script");
+  let finished = false;
 
-    modalDescription.textContent =
-        service.description;
+  function finish() {
+    if (finished) return;
+    finished = true;
+    loadingServices = false;
+    script.remove();
+    delete window[callbackName];
+  }
 
+  const timeout = setTimeout(() => {
+    finish();
 
-    modalLinks.innerHTML = "";
+    if (!COMMON_ONLINE_SERVICES.length) {
+      count.textContent = "Unable to Load Services";
+      noResult.style.display = "block";
+      noResult.querySelector("h3").textContent = "⚠️ সার্ভিস লোড হয়নি";
+      noResult.querySelector("p").textContent =
+        "Deploy URL, Web App access এবং Internet connection পরীক্ষা করুন।";
+    }
+  }, 15000);
 
+  window[callbackName] = function (response) {
+    if (finished) return;
+    clearTimeout(timeout);
+    finish();
 
-    if (
-        !service.links ||
-        service.links.length === 0
-    ) {
-
-        modalLinks.innerHTML = `
-            <div style="
-                grid-column:1/-1;
-                text-align:center;
-                padding:25px;
-                color:#71828a;
-            ">
-                No service option available.
-            </div>
-        `;
-
-    } else {
-
-        service.links.forEach(link => {
-
-            const a =
-                document.createElement("a");
-
-            a.className =
-                "common-service-link";
-
-            a.href =
-                link.url || "#";
-
-            a.target =
-                "_blank";
-
-            a.rel =
-                "noopener noreferrer";
-
-
-            const strong =
-                document.createElement("strong");
-
-            strong.textContent =
-                link.title || "Open Service";
-
-
-            const span =
-                document.createElement("span");
-
-            span.textContent =
-                link.description || "";
-
-
-            a.appendChild(strong);
-            a.appendChild(span);
-
-            modalLinks.appendChild(a);
-
-        });
-
+    if (!response || response.ok !== true ||
+        !Array.isArray(response.services)) {
+      if (!COMMON_ONLINE_SERVICES.length) {
+        count.textContent = "Unable to Load Services";
+        noResult.style.display = "block";
+        noResult.querySelector("h3").textContent = "⚠️ ডেটা পাওয়া যায়নি";
+        noResult.querySelector("p").textContent =
+          "Apps Script API-এর response পরীক্ষা করুন।";
+      }
+      return;
     }
 
+    COMMON_ONLINE_SERVICES = response.services
+      .filter(service => service && service.name)
+      .map(service => ({
+        id: String(service.id || ""),
+        name: String(service.name || ""),
+        description: String(service.description || ""),
+        icon: String(service.icon || "⚡"),
+        links: Array.isArray(service.links)
+          ? service.links.filter(link =>
+              link &&
+              link.title &&
+              /^https?:\/\/\S+$/i.test(String(link.url || ""))
+            ).map(link => ({
+              title: String(link.title || ""),
+              description: String(link.description || ""),
+              url: String(link.url || "")
+            }))
+          : []
+      }));
 
-    callButton.href =
-        "tel:" + COMMON_SERVICE_PHONE;
+    filterServices();
+  };
 
+  const separator = COMMON_SERVICE_API_URL.includes("?") ? "&" : "?";
+  script.src =
+    COMMON_SERVICE_API_URL + separator +
+    "action=list&callback=" + encodeURIComponent(callbackName) +
+    "&_ts=" + Date.now();
 
-    const message =
-        "Hello, I want help regarding " +
-        service.name;
+  script.onerror = function () {
+    clearTimeout(timeout);
+    finish();
 
-    whatsappButton.href =
-        "https://wa.me/" +
-        COMMON_SERVICE_WHATSAPP +
-        "?text=" +
-        encodeURIComponent(message);
+    if (!COMMON_ONLINE_SERVICES.length) {
+      count.textContent = "Unable to Connect";
+      noResult.style.display = "block";
+      noResult.querySelector("h3").textContent = "⚠️ সংযোগ করা যায়নি";
+      noResult.querySelector("p").textContent =
+        "Deploy URL এবং Apps Script deployment access পরীক্ষা করুন।";
+    }
+  };
 
-
-    modal.classList.add("active");
-
-    document.body.style.overflow =
-        "hidden";
+  document.head.appendChild(script);
 }
 
+function filterServices() {
+  const value = search.value.trim().toLocaleLowerCase();
 
-/* =========================================
-   CLOSE MODAL
-========================================= */
+  const filtered = COMMON_ONLINE_SERVICES.filter(service => {
+    const searchable = [
+      service.name,
+      service.description,
+      ...(service.links || []).flatMap(link => [
+        link.title,
+        link.description
+      ])
+    ].join(" ").toLocaleLowerCase();
+
+    return searchable.includes(value);
+  });
+
+  renderServices(filtered);
+}
+
+function openService(service, trigger) {
+  lastFocusedElement = trigger || document.activeElement;
+
+  modalIcon.textContent = service.icon || "⚡";
+  modalTitle.textContent = service.name;
+  modalDescription.textContent =
+    service.description || "Select an option";
+
+  modalLinks.replaceChildren();
+
+  if (!Array.isArray(service.links) || !service.links.length) {
+    const empty = document.createElement("p");
+    empty.textContent = "No service option available.";
+    empty.style.cssText =
+      "grid-column:1/-1;text-align:center;padding:24px;color:#71828a";
+    modalLinks.appendChild(empty);
+  } else {
+    service.links.forEach(link => {
+      if (!/^https?:\/\/\S+$/i.test(link.url || "")) return;
+
+      const a = document.createElement("a");
+      a.className = "common-service-link";
+      a.href = link.url;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+
+      const strong = document.createElement("strong");
+      strong.textContent = link.title || "Open Service";
+
+      const span = document.createElement("span");
+      span.textContent = link.description || "Open online service";
+
+      a.append(strong, span);
+      modalLinks.appendChild(a);
+    });
+  }
+
+  callButton.href = "tel:" + COMMON_SERVICE_PHONE;
+
+  const message = "Hello, I want help regarding " + service.name;
+  whatsappButton.href =
+    "https://wa.me/" + COMMON_SERVICE_WHATSAPP +
+    "?text=" + encodeURIComponent(message);
+
+  modal.classList.add("active");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  modalClose.focus();
+}
 
 function closeService() {
+  if (!modal.classList.contains("active")) return;
 
-    modal.classList.remove("active");
+  modal.classList.remove("active");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
 
-    document.body.style.overflow = "";
+  if (lastFocusedElement &&
+      typeof lastFocusedElement.focus === "function") {
+    lastFocusedElement.focus();
+  }
 }
 
+modalClose.addEventListener("click", closeService);
 
-if (modalClose) {
+modal.addEventListener("click", event => {
+  if (event.target === modal) closeService();
+});
 
-    modalClose.addEventListener(
-        "click",
-        closeService
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && modal.classList.contains("active")) {
+    closeService();
+  }
+
+  if (event.key === "Tab" && modal.classList.contains("active")) {
+    const focusable = modal.querySelectorAll(
+      'a[href],button:not([disabled])'
     );
+    if (!focusable.length) return;
 
-}
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
 
-
-if (modal) {
-
-    modal.addEventListener(
-        "click",
-        function(event) {
-
-            if (event.target === modal) {
-                closeService();
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   ESC KEY
-========================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Escape" &&
-            modal &&
-            modal.classList.contains("active")
-        ) {
-
-            closeService();
-
-        }
-
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
     }
-);
+  }
+});
 
+search.addEventListener("input", filterServices);
 
-/* =========================================
-   SEARCH
-========================================= */
-
-if (search) {
-
-    search.addEventListener(
-        "input",
-        function() {
-
-            const value =
-                this.value
-                    .trim()
-                    .toLowerCase();
-
-
-            const filtered =
-                COMMON_ONLINE_SERVICES.filter(
-                    function(service) {
-
-                        const name =
-                            String(
-                                service.name || ""
-                            ).toLowerCase();
-
-
-                        const description =
-                            String(
-                                service.description || ""
-                            ).toLowerCase();
-
-
-                        const links =
-                            (service.links || [])
-                                .map(
-                                    function(link) {
-
-                                        return (
-                                            String(
-                                                link.title || ""
-                                            ) +
-                                            " " +
-                                            String(
-                                                link.description || ""
-                                            )
-                                        ).toLowerCase();
-
-                                    }
-                                )
-                                .join(" ");
-
-
-                        return (
-                            name.includes(value) ||
-                            description.includes(value) ||
-                            links.includes(value)
-                        );
-
-                    }
-                );
-
-
-            renderServices(filtered);
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   START
-========================================= */
-
-function startCommonServices() {
-
-    renderServices(
-        COMMON_ONLINE_SERVICES
-    );
-
-}
-
-
-if (
-    document.readyState === "loading"
-) {
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        startCommonServices
-    );
-
-} else {
-
-    startCommonServices();
-
-}
-
+/* প্রথমবার লোড এবং পরে প্রতি 60 সেকেন্ডে আপডেট পরীক্ষা */
+loadLiveServices();
+setInterval(loadLiveServices, 60000);
 </script>
-
-
 </body>
 </html>
+
