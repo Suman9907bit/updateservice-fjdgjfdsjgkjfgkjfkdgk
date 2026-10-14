@@ -118,27 +118,18 @@ button,input,a{font:inherit}button,a{-webkit-tap-highlight-color:transparent}
   </section>
 </div>
 
-
 <script>
 "use strict";
 
-/* Jana Online Service - Live Google Sheets API */
-const COMMON_SERVICE_API_URL =
-  "https://script.google.com/macros/s/AKfycbw6SNpXopZ2xHlV1x2MVLtfbtP_JLvoGad0QC-aUH-I0Xr3datailH1YZLrODlTV-JD/exec";
+/* শুধু এখানে আপনার Apps Script Deploy URL বসাবেন */
+const COMMON_SERVICE_API_URL = "https://script.google.com/macros/s/AKfycbw6SNpXopZ2xHlV1x2MVLtfbtP_JLvoGad0QC-aUH-I0Xr3datailH1YZLrODlTV-JD/exec";
 
 const COMMON_SERVICE_PHONE = "9907992247";
 const COMMON_SERVICE_WHATSAPP = "919907992247";
-const REFRESH_INTERVAL = 60000;
-const REQUEST_TIMEOUT = 20000;
 
 let COMMON_ONLINE_SERVICES = [];
-let loadingServices = false;
 let lastFocusedElement = null;
-let refreshTimer = null;
-let requestTimer = null;
-let currentScript = null;
-let currentCallback = null;
-let requestNumber = 0;
+let loadingServices = false;
 
 const grid = document.getElementById("commonServiceGrid");
 const count = document.getElementById("commonServiceCount");
@@ -153,65 +144,10 @@ const modalLinks = document.getElementById("commonServiceLinks");
 const callButton = document.getElementById("commonCallButton");
 const whatsappButton = document.getElementById("commonWhatsappButton");
 
-function showMessage(title, message) {
-  noResult.style.display = "block";
-  noResult.querySelector("h3").textContent = title;
-  noResult.querySelector("p").textContent = message;
-}
-
-function isValidHttpUrl(value) {
-  try {
-    const url = new URL(String(value || ""));
-    return url.protocol === "https:" || url.protocol === "http:";
-  } catch (_) {
-    return false;
-  }
-}
-
-function normalizeServices(response) {
-  if (!response || response.ok !== true ||
-      !Array.isArray(response.services)) {
-    throw new Error("Invalid API response");
-  }
-
-  return response.services
-    .filter(service => service && service.name)
-    .map(service => {
-      let links = Array.isArray(service.links) ? service.links : [];
-
-      /* Also support Sub Services JSON if returned as a string */
-      if (!links.length && typeof service.subServices === "string") {
-        try {
-          const parsed = JSON.parse(service.subServices);
-          if (Array.isArray(parsed)) links = parsed;
-        } catch (_) {}
-      }
-
-      return {
-        id: String(service.id || ""),
-        name: String(service.name || ""),
-        description: String(service.description || ""),
-        icon: String(service.icon || "⚡"),
-        links: links
-          .filter(link => link && isValidHttpUrl(link.url || link.link))
-          .map(link => ({
-            title: String(link.title || link.name || "Open Service"),
-            description: String(link.description || ""),
-            url: String(link.url || link.link || "")
-          }))
-      };
-    });
-}
-
 function renderServices(list) {
   grid.replaceChildren();
   count.textContent = list.length + " Services Available";
   noResult.style.display = list.length ? "none" : "block";
-
-  if (!list.length) {
-    showMessage("😔 কোনো Service পাওয়া যায়নি",
-      "অন্য কোনো Service Name দিয়ে Search করুন।");
-  }
 
   list.forEach((service, index) => {
     const card = document.createElement("article");
@@ -223,10 +159,10 @@ function renderServices(list) {
 
     const icon = document.createElement("div");
     icon.className = "common-service-icon";
-    icon.textContent = service.icon;
+    icon.textContent = service.icon || "⚡";
 
     const title = document.createElement("h3");
-    title.textContent = service.name;
+    title.textContent = service.name || "Online Service";
 
     const description = document.createElement("p");
     description.textContent =
@@ -258,6 +194,114 @@ function renderServices(list) {
   });
 }
 
+function loadLiveServices() {
+  if (loadingServices) return;
+
+  if (
+    !COMMON_SERVICE_API_URL ||
+    COMMON_SERVICE_API_URL === "PASTE_YOUR_DEPLOY_URL_HERE"
+  ) {
+    count.textContent = "Deploy URL Required";
+    noResult.style.display = "block";
+    noResult.querySelector("h3").textContent = "⚙️ API URL বসান";
+    noResult.querySelector("p").textContent =
+      "HTML কোডে COMMON_SERVICE_API_URL-এর জায়গায় Apps Script Web App URL বসান।";
+    return;
+  }
+
+  loadingServices = true;
+  count.textContent = "Loading Services...";
+  noResult.style.display = "none";
+
+  const callbackName =
+    "josServicesCallback_" + Date.now() + "_" +
+    Math.floor(Math.random() * 100000);
+
+  const script = document.createElement("script");
+  let finished = false;
+
+  function finish() {
+    if (finished) return;
+    finished = true;
+    loadingServices = false;
+    script.remove();
+    delete window[callbackName];
+  }
+
+  const timeout = setTimeout(() => {
+    finish();
+
+    if (!COMMON_ONLINE_SERVICES.length) {
+      count.textContent = "Unable to Load Services";
+      noResult.style.display = "block";
+      noResult.querySelector("h3").textContent = "⚠️ সার্ভিস লোড হয়নি";
+      noResult.querySelector("p").textContent =
+        "Deploy URL, Web App access এবং Internet connection পরীক্ষা করুন।";
+    }
+  }, 15000);
+
+  window[callbackName] = function (response) {
+    if (finished) return;
+    clearTimeout(timeout);
+    finish();
+
+    if (!response || response.ok !== true ||
+        !Array.isArray(response.services)) {
+      if (!COMMON_ONLINE_SERVICES.length) {
+        count.textContent = "Unable to Load Services";
+        noResult.style.display = "block";
+        noResult.querySelector("h3").textContent = "⚠️ ডেটা পাওয়া যায়নি";
+        noResult.querySelector("p").textContent =
+          "Apps Script API-এর response পরীক্ষা করুন।";
+      }
+      return;
+    }
+
+    COMMON_ONLINE_SERVICES = response.services
+      .filter(service => service && service.name)
+      .map(service => ({
+        id: String(service.id || ""),
+        name: String(service.name || ""),
+        description: String(service.description || ""),
+        icon: String(service.icon || "⚡"),
+        links: Array.isArray(service.links)
+          ? service.links.filter(link =>
+              link &&
+              link.title &&
+              /^https?:\/\/\S+$/i.test(String(link.url || ""))
+            ).map(link => ({
+              title: String(link.title || ""),
+              description: String(link.description || ""),
+              url: String(link.url || "")
+            }))
+          : []
+      }));
+
+    filterServices();
+  };
+
+  const separator = COMMON_SERVICE_API_URL.includes("?") ? "&" : "?";
+  script.src =
+    COMMON_SERVICE_API_URL + separator +
+    "action=list&callback=" + encodeURIComponent(callbackName) +
+    "&_ts=" + Date.now();
+
+  script.onerror = function () {
+    clearTimeout(timeout);
+    finish();
+
+    if (!COMMON_ONLINE_SERVICES.length) {
+      count.textContent = "Unable to Connect";
+      noResult.style.display = "block";
+      noResult.querySelector("h3").textContent = "⚠️ সংযোগ করা যায়নি";
+      noResult.querySelector("p").textContent =
+        "Deploy URL এবং Apps Script deployment access পরীক্ষা করুন।";
+    }
+  };
+
+  document.head.appendChild(script);
+}
+
 function filterServices() {
   const value = search.value.trim().toLocaleLowerCase();
 
@@ -265,7 +309,7 @@ function filterServices() {
     const searchable = [
       service.name,
       service.description,
-      ...service.links.flatMap(link => [
+      ...(service.links || []).flatMap(link => [
         link.title,
         link.description
       ])
@@ -275,150 +319,6 @@ function filterServices() {
   });
 
   renderServices(filtered);
-}
-
-function stopRequest() {
-  if (requestTimer) {
-    clearTimeout(requestTimer);
-    requestTimer = null;
-  }
-
-  if (currentScript) {
-    currentScript.onerror = null;
-    currentScript.remove();
-    currentScript = null;
-  }
-
-  if (currentCallback) {
-    try {
-      delete window[currentCallback];
-    } catch (_) {
-      window[currentCallback] = undefined;
-    }
-    currentCallback = null;
-  }
-
-  loadingServices = false;
-}
-
-function loadLiveServices() {
-  if (loadingServices) return;
-
-  if (!COMMON_SERVICE_API_URL ||
-      !COMMON_SERVICE_API_URL.includes("/exec")) {
-    count.textContent = "API URL Required";
-    showMessage("⚙️ API URL পরীক্ষা করুন",
-      "Apps Script Web App-এর /exec URL বসাতে হবে।");
-    return;
-  }
-
-  loadingServices = true;
-  const thisRequest = ++requestNumber;
-
-  if (!COMMON_ONLINE_SERVICES.length) {
-    count.textContent = "Connecting to Services...";
-    noResult.style.display = "none";
-  }
-
-  const callbackName =
-    "josCallback_" + Date.now() + "_" +
-    Math.floor(Math.random() * 1000000);
-
-  currentCallback = callbackName;
-
-  const script = document.createElement("script");
-  currentScript = script;
-  script.async = true;
-  script.referrerPolicy = "no-referrer";
-
-  let completed = false;
-
-  function finish() {
-    if (completed) return;
-    completed = true;
-
-    if (requestTimer) {
-      clearTimeout(requestTimer);
-      requestTimer = null;
-    }
-
-    if (currentScript === script) currentScript = null;
-
-    script.onerror = null;
-    script.remove();
-
-    if (currentCallback === callbackName) {
-      try {
-        delete window[callbackName];
-      } catch (_) {
-        window[callbackName] = undefined;
-      }
-      currentCallback = null;
-    }
-
-    loadingServices = false;
-  }
-
-  function fail(message) {
-    if (completed) return;
-    finish();
-
-    /* Preserve the last successful data during temporary failures */
-    if (!COMMON_ONLINE_SERVICES.length) {
-      count.textContent = "Unable to Load Services";
-      showMessage("⚠️ সার্ভিস লোড হয়নি", message);
-    } else {
-      count.textContent =
-        COMMON_ONLINE_SERVICES.length +
-        " Services Available · Update Failed";
-    }
-  }
-
-  window[callbackName] = function(response) {
-    if (completed || thisRequest !== requestNumber) return;
-
-    try {
-      const services = normalizeServices(response);
-
-      COMMON_ONLINE_SERVICES = services;
-      finish();
-      filterServices();
-    } catch (_) {
-      fail("API response বা Server -এর ডেটা পরীক্ষা করুন।");
-    }
-  };
-
-  script.onload = function() {
-    /*
-      JSONP callback should run before load completes.
-      If it did not run, report a response/callback issue.
-    */
-    setTimeout(() => {
-      if (!completed && thisRequest === requestNumber) {
-        fail("API থেকে সঠিক JSONP response আসেনি। Deployment access ও Apps Script কোড পরীক্ষা করুন।");
-      }
-    }, 1000);
-  };
-
-  script.onerror = function() {
-    if (thisRequest !== requestNumber) return;
-
-    fail("Google Apps Script-এ সংযোগ করা যায়নি। Web App access, URL এবং নেটওয়ার্ক পরীক্ষা করুন।");
-  };
-
-  const separator = COMMON_SERVICE_API_URL.includes("?") ? "&" : "?";
-
-  script.src = COMMON_SERVICE_API_URL + separator +
-    "action=list&callback=" + encodeURIComponent(callbackName) +
-    "&_ts=" + Date.now();
-
-  requestTimer = setTimeout(() => {
-    if (thisRequest === requestNumber) {
-      fail("২০ সেকেন্ডেও উত্তর আসেনি। Internet connection ও Web App deployment পরীক্ষা করুন।");
-    }
-  }, REQUEST_TIMEOUT);
-
-  document.head.appendChild(script);
 }
 
 function openService(service, trigger) {
@@ -431,7 +331,7 @@ function openService(service, trigger) {
 
   modalLinks.replaceChildren();
 
-  if (!service.links.length) {
+  if (!Array.isArray(service.links) || !service.links.length) {
     const empty = document.createElement("p");
     empty.textContent = "No service option available.";
     empty.style.cssText =
@@ -439,6 +339,8 @@ function openService(service, trigger) {
     modalLinks.appendChild(empty);
   } else {
     service.links.forEach(link => {
+      if (!/^https?:\/\/\S+$/i.test(link.url || "")) return;
+
       const a = document.createElement("a");
       a.className = "common-service-link";
       a.href = link.url;
@@ -446,7 +348,7 @@ function openService(service, trigger) {
       a.rel = "noopener noreferrer";
 
       const strong = document.createElement("strong");
-      strong.textContent = link.title;
+      strong.textContent = link.title || "Open Service";
 
       const span = document.createElement("span");
       span.textContent = link.description || "Open online service";
@@ -458,11 +360,10 @@ function openService(service, trigger) {
 
   callButton.href = "tel:" + COMMON_SERVICE_PHONE;
 
+  const message = "Hello, I want help regarding " + service.name;
   whatsappButton.href =
     "https://wa.me/" + COMMON_SERVICE_WHATSAPP +
-    "?text=" + encodeURIComponent(
-      "Hello, I want help regarding " + service.name
-    );
+    "?text=" + encodeURIComponent(message);
 
   modal.classList.add("active");
   modal.setAttribute("aria-hidden", "false");
@@ -498,7 +399,6 @@ document.addEventListener("keydown", event => {
     const focusable = modal.querySelectorAll(
       'a[href],button:not([disabled])'
     );
-
     if (!focusable.length) return;
 
     const first = focusable[0];
@@ -507,8 +407,7 @@ document.addEventListener("keydown", event => {
     if (event.shiftKey && document.activeElement === first) {
       event.preventDefault();
       last.focus();
-    } else if (!event.shiftKey &&
-               document.activeElement === last) {
+    } else if (!event.shiftKey && document.activeElement === last) {
       event.preventDefault();
       first.focus();
     }
@@ -517,12 +416,10 @@ document.addEventListener("keydown", event => {
 
 search.addEventListener("input", filterServices);
 
+/* প্রথমবার লোড এবং পরে প্রতি 60 সেকেন্ডে আপডেট পরীক্ষা */
 loadLiveServices();
-
-/* Retry/update every 60 seconds */
-refreshTimer = setInterval(loadLiveServices, REFRESH_INTERVAL);
+setInterval(loadLiveServices, 60000);
 </script>
-
 </body>
 </html>
 
