@@ -380,12 +380,419 @@ function closeService() {
 
   if (lastFocusedElement &&
       typeof lastFocusedElement.focus === "function") {
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#075b63">
+<meta name="description" content="Jana Online Service - Common Online Services and useful government portals.">
+<title>Jana Online Service</title>
+<style>
+:root{--ink:#183747;--muted:#718792;--line:#e2ecec;--page:#edf4f4;--white:#fff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--page);color:var(--ink);font-family:Arial,"Noto Sans Bengali",sans-serif;-webkit-font-smoothing:antialiased;height:100%;overflow-x:hidden}
+button,input,a{font:inherit}
+
+/* অ্যাপ শেল */
+.app-shell{display:flex;flex-direction:column;height:100vh;height:100dvh;max-width:480px;margin:0 auto;background:var(--page);box-shadow:0 0 35px rgba(0,0,0,0.12);position:relative}
+
+/* মূল স্ক্রিন */
+.app-main{flex:1;overflow-y:auto;padding:14px;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;position:relative}
+
+/* সার্চ ও টুলবার */
+.common-toolbar{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;padding:13px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 4px 15px rgba(23,62,76,0.04)}
+.common-toolbar-top{display:flex;align-items:center;justify-content:space-between}
+.common-count{display:flex;align-items:center;gap:6px;color:#087f75;font-size:11px;font-weight:800;white-space:nowrap}
+.common-count:before{content:"";width:6px;height:6px;flex-shrink:0;border-radius:50%;background:#20b58d;box-shadow:0 0 0 2px rgba(32,181,141,0.2)}
+.common-search{width:100%;min-height:44px;padding:11px 15px;border:1.5px solid #d4e3e3;border-radius:12px;outline:none;color:var(--ink);background:#f8fbfb;font-size:12.5px;transition:all .25s ease}
+.common-search::placeholder{color:#91a2a6}
+.common-search:focus{border-color:#087f82;background:#fff;box-shadow:0 0 0 4px rgba(8,127,130,0.1)}
+
+/* JOS প্রফেশনাল লোডিং স্ক্রিন */
+.jos-loader{display:none;flex-direction:column;align-items:center;justify-content:center;padding:50px 20px;text-align:center;width:100%}
+.jos-spinner-box{position:relative;width:54px;height:54px;margin-bottom:15px}
+.jos-spinner-ring{position:absolute;inset:0;border:4px solid #d4e3e3;border-top-color:#087f82;border-radius:50%;animation:josSpin 0.8s linear infinite}
+.jos-spinner-icon{position:absolute;inset:0;display:grid;place-items:center;font-size:20px;animation:josPulse 1.2s ease-in-out infinite}
+.jos-loader-title{font-size:13px;font-weight:900;color:#076d70;margin-bottom:4px}
+.jos-loader-sub{font-size:10px;color:var(--muted)}
+
+@keyframes josSpin{to{transform:rotate(360deg)}}
+@keyframes josPulse{0%,100%{transform:scale(0.9);opacity:0.7}50%{transform:scale(1.1);opacity:1}}
+
+/* সার্ভিস কার্ড গ্রিড */
+.common-service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.common-service-card{position:relative;isolation:isolate;min-width:0;overflow:hidden;padding:13px;border:1.5px solid rgba(0,0,0,0.06);border-radius:16px;background:var(--card-bg, #fff);box-shadow:0 3px 12px rgba(23,62,76,0.04);cursor:pointer;outline:none;transform:translateY(0);transition:transform .2s cubic-bezier(0.34,1.56,0.64,1),border-color .2s,box-shadow .2s;animation:cardEnter .3s cubic-bezier(0.16,1,0.3,1) both}
+.common-service-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,0.08)}
+.common-service-card:active{transform:scale(0.96)}
+
+/* আইকন স্টাইল */
+.common-service-icon{display:flex;align-items:center;justify-content:center;width:40px;height:40px;margin-bottom:10px;border-radius:12px;background:rgba(255,255,255,0.7);font-size:19px;transition:transform .2s}
+.common-service-card:hover .common-service-icon{transform:scale(1.08) rotate(3deg)}
+
+/* কার্ডের লেখা */
+.common-service-card h3{margin:0 0 5px;color:var(--card-text, #183747);font-size:12px;font-weight:900;line-height:1.4;overflow-wrap:anywhere}
+.common-service-card p{min-height:30px;margin:0;color:var(--card-desc, #556b73);font-size:10px;line-height:1.5;overflow-wrap:anywhere}
+
+/* কার্ড ফুটার ও অ্যারো */
+.common-service-card-footer{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:10px;padding-top:8px;border-top:1px solid rgba(0,0,0,0.06)}
+.common-service-card-footer span:first-child{color:var(--card-text, #088a7d);font-size:9.5px;font-weight:800}
+.common-service-arrow{display:flex;align-items:center;justify-content:center;width:23px;height:23px;flex-shrink:0;border-radius:8px;color:var(--card-text, #087f82);background:rgba(255,255,255,0.6);font-size:13px;transition:transform .2s,background .2s}
+.common-service-card:hover .common-service-arrow{transform:translateX(3px);background:var(--card-text, #087f82);color:#fff}
+
+@keyframes cardEnter{from{opacity:0;transform:translateY(12px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* কোনো রেজাল্ট না পেলে */
+.common-no-result{display:none;margin-top:20px;padding:35px 16px;border:1.5px dashed #c2d8d8;border-radius:16px;text-align:center;color:var(--muted);background:#fff}
+.common-no-result h3{margin:0 0 6px;color:var(--ink);font-size:15px}
+.common-no-result p{margin:0;font-size:10.5px;line-height:1.6}
+
+/* অ্যাপ বটম শিট মডাল */
+.common-modal-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:flex-end;justify-content:center;background:rgba(6,35,43,0.65);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;visibility:hidden;pointer-events:none;transition:all .25s ease}
+.common-modal-overlay.active{opacity:1;visibility:visible;pointer-events:auto}
+.common-modal{display:flex;flex-direction:column;width:100%;max-width:480px;max-height:85vh;overflow:hidden;border:1px solid rgba(255,255,255,0.8);border-radius:24px 24px 0 0;background:#fff;box-shadow:0 -15px 45px rgba(0,29,38,0.3);transform:translateY(40px);transition:transform .3s cubic-bezier(0.1,1,0.1,1)}
+.common-modal-overlay.active .common-modal{transform:translateY(0)}
+.common-modal-header{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0;padding:15px 18px;color:#fff;background:linear-gradient(110deg,#075b63,#078c83)}
+.common-modal-title-area{display:flex;align-items:center;gap:11px;min-width:0}
+.common-modal-icon{display:flex;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0;border:1px solid rgba(255,255,255,0.3);border-radius:12px;background:rgba(255,255,255,0.15);font-size:19px}
+.common-modal-header h3{margin:0 0 2px;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
+.common-modal-header p{margin:0;color:#d9f2ef;font-size:10px;line-height:1.4}
+.common-modal-close{display:flex;align-items:center;justify-content:center;width:33px;height:33px;flex-shrink:0;border:1px solid rgba(255,255,255,0.3);border-radius:10px;color:#fff;background:rgba(255,255,255,0.15);font-size:19px;cursor:pointer;transition:background .2s}
+.common-modal-close:hover{background:rgba(255,255,255,0.3)}
+.common-modal-body{padding:16px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.common-modal-label{display:flex;align-items:center;gap:7px;margin-bottom:11px;color:#405c63;font-size:11px;font-weight:800}
+.common-modal-label:before{content:"";width:4px;height:14px;border-radius:4px;background:#21b7a5}
+
+/* সাব অপশন গ্রিড ও লিঙ্ক কার্ড */
+.common-service-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.common-service-link{position:relative;display:block;min-width:0;padding:12px 11px;border:1.5px solid rgba(0,0,0,0.05);border-radius:13px;text-decoration:none;background:var(--sub-bg, #f8fbfa);overflow-wrap:anywhere;transform:translateY(0);transition:all .2s ease}
+.common-service-link:after{content:"↗";position:absolute;top:9px;right:9px;color:var(--sub-text, #8ca9a7);font-size:11px;transition:transform .2s}
+.common-service-link:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,0.08)}
+.common-service-link:hover:after{transform:translate(2px,-2px)}
+.common-service-link:active{transform:scale(0.96)}
+.common-service-link strong{display:block;padding-right:14px;margin-bottom:4px;color:var(--sub-text, #076366);font-size:12.5px;font-weight:900;line-height:1.4}
+.common-service-link span{display:block;color:var(--sub-desc, #687d7e);font-size:10px;line-height:1.5}
+
+/* মডাল ফুটার ও কল/whatsapp বাটন */
+.common-modal-footer{display:flex;flex-direction:column;gap:9px;flex-shrink:0;padding:13px 16px calc(13px + env(safe-area-inset-bottom));border-top:1px solid #e7efed;background:#fbfdfc}
+.common-contact-buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.common-contact-buttons a{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:9px 11px;border-radius:11px;font-size:10.5px;font-weight:800;text-decoration:none;transition:all .2s}
+.common-contact-buttons a:hover{transform:translateY(-1px);box-shadow:0 5px 12px rgba(0,100,120,0.15)}
+.common-contact-buttons a:active{transform:scale(0.96)}
+.common-call-button{color:#087b7d;background:#e8f7f4;border:1px solid #d4eee8}
+.common-whatsapp-button{color:#fff;background:linear-gradient(120deg,#078e85,#20b68b)}
+.common-modal-footer small{color:#87999a;font-size:9px;text-align:center}
+
+@media(min-width:481px){
+  body{background:#041c24;display:flex;align-items:center;justify-content:center}
+  .app-shell{border-radius:26px;border:8px solid #0d3842;box-shadow:0 25px 60px rgba(0,0,0,0.45)}
+}
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+  <main class="app-main">
+   <div class="common-toolbar">
+    <div class="common-toolbar-top">
+     <div id="commonServiceCount" class="common-count" aria-live="polite">0 Services</div>
+    </div>
+    <input type="search" id="commonServiceSearch" class="common-search" placeholder="🔎 সার্ভিসের নাম লিখে খুঁজুন..." aria-label="Search services">
+   </div>
+   
+   <!-- JOS লোডিং এনিমেশন বক্স -->
+   <div id="josLoader" class="jos-loader">
+    <div class="jos-spinner-box">
+     <div class="jos-spinner-ring"></div>
+     <div class="jos-spinner-icon">⚡</div>
+    </div>
+    <div class="jos-loader-title">Jana Online Service</div>
+    <div class="jos-loader-sub">সার্ভিস ডেটা লোড হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...</div>
+   </div>
+
+   <div id="commonServiceGrid" class="common-service-grid"></div>
+   
+   <div id="commonServiceNoResult" class="common-no-result">
+    <h3>😔 কোনো Service পাওয়া যায়নি</h3>
+    <p>অন্য কোনো Service Name দিয়ে Search করুন।</p>
+   </div>
+  </main>
+</div>
+
+<div id="commonServiceModal" class="common-modal-overlay" aria-hidden="true">
+ <section class="common-modal" role="dialog" aria-modal="true" aria-labelledby="commonModalTitle" aria-describedby="commonModalDescription">
+  <div class="common-modal-header">
+   <div class="common-modal-title-area">
+    <div id="commonModalIcon" class="common-modal-icon">⚡</div>
+    <div><h3 id="commonModalTitle">Service</h3><p id="commonModalDescription">Select an option</p></div>
+   </div>
+   <button type="button" id="commonModalClose" class="common-modal-close" aria-label="Close dialog">×</button>
+  </div>
+  <div class="common-modal-body">
+   <div class="common-modal-label">Select Service Option</div>
+   <div id="commonServiceLinks" class="common-service-links"></div>
+  </div>
+  <div class="common-modal-footer">
+   <div class="common-contact-buttons">
+    <a href="tel:9907992247" id="commonCallButton" class="common-call-button">📞 Call</a>
+    <a href="#" id="commonWhatsappButton" class="common-whatsapp-button" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+   </div>
+   <small>Links open in new tab</small>
+  </div>
+ </section>
+</div>
+
+<script>
+"use strict";
+
+const COMMON_SERVICE_API_URL = "https://script.google.com/macros/s/AKfycbw6SNpXopZ2xHlV1x2MVLtfbtP_JLvoGad0QC-aUH-I0Xr3datailH1YZLrODlTV-JD/exec";
+const COMMON_SERVICE_PHONE = "9907992247";
+const COMMON_SERVICE_WHATSAPP = "919907992247";
+
+let COMMON_ONLINE_SERVICES = [];
+let lastFocusedElement = null;
+let loadingServices = false;
+
+const grid = document.getElementById("commonServiceGrid");
+const count = document.getElementById("commonServiceCount");
+const search = document.getElementById("commonServiceSearch");
+const noResult = document.getElementById("commonServiceNoResult");
+const josLoader = document.getElementById("josLoader");
+const modal = document.getElementById("commonServiceModal");
+const modalClose = document.getElementById("commonModalClose");
+const modalIcon = document.getElementById("commonModalIcon");
+const modalTitle = document.getElementById("commonModalTitle");
+const modalDescription = document.getElementById("commonModalDescription");
+const modalLinks = document.getElementById("commonServiceLinks");
+const callButton = document.getElementById("commonCallButton");
+const whatsappButton = document.getElementById("commonWhatsappButton");
+
+const pastelThemes = [
+  { bg: "#f0f9ff", text: "#0369a1", desc: "#334155" },
+  { bg: "#fdf4ff", text: "#a21caf", desc: "#4a5568" },
+  { bg: "#f0fdf4", text: "#15803d", desc: "#334155" },
+  { bg: "#fffbeb", text: "#b45309", desc: "#4a5568" },
+  { bg: "#fff1f2", text: "#be123c", desc: "#4a5568" },
+  { bg: "#f5f3ff", text: "#6d28d9", desc: "#4a5568" },
+  { bg: "#ecfdf5", text: "#047857", desc: "#334155" },
+  { bg: "#fff7ed", text: "#c2410c", desc: "#4a5568" }
+];
+
+function renderServices(list) {
+  grid.replaceChildren();
+  count.textContent = list.length + " Services Available";
+  noResult.style.display = list.length ? "none" : "block";
+
+  list.forEach((service, index) => {
+    const card = document.createElement("article");
+    card.className = "common-service-card";
+    card.style.animationDelay = Math.min(index * 20, 200) + "ms";
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", "Open " + service.name);
+
+    const theme = pastelThemes[index % pastelThemes.length];
+    card.style.setProperty('--card-bg', theme.bg);
+    card.style.setProperty('--card-text', theme.text);
+    card.style.setProperty('--card-desc', theme.desc);
+
+    const icon = document.createElement("div");
+    icon.className = "common-service-icon";
+    icon.textContent = service.icon || "⚡";
+
+    const title = document.createElement("h3");
+    title.textContent = service.name || "Online Service";
+
+    const description = document.createElement("p");
+    description.textContent = service.description || "Explore options.";
+
+    const footer = document.createElement("div");
+    footer.className = "common-service-card-footer";
+
+    const view = document.createElement("span");
+    view.textContent = "View Options";
+
+    const arrow = document.createElement("span");
+    arrow.className = "common-service-arrow";
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "→";
+
+    footer.append(view, arrow);
+    card.append(icon, title, description, footer);
+
+    card.addEventListener("click", () => openService(service, card));
+    card.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openService(service, card);
+      }
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+function loadLiveServices() {
+  if (loadingServices) return;
+
+  if (!COMMON_SERVICE_API_URL || COMMON_SERVICE_API_URL === "PASTE_YOUR_DEPLOY_URL_HERE") {
+    count.textContent = "Deploy URL Required";
+    noResult.style.display = "block";
+    noResult.querySelector("h3").textContent = "⚙️ API URL বসান";
+    noResult.querySelector("p").textContent = "Apps Script Web App URL বসান[cite: 1].";
+    return;
+  }
+
+  loadingServices = true;
+  count.textContent = "Loading...";
+  noResult.style.display = "none";
+  josLoader.style.display = "flex"; // লোডিং শুরু হলে এনিমেশন দেখাবে
+  grid.replaceChildren();
+
+  const callbackName = "josServicesCallback_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+  const script = document.createElement("script");
+  let finished = false;
+
+  function finish() {
+    if (finished) return;
+    finished = true;
+    loadingServices = false;
+    script.remove();
+    delete window[callbackName];
+    josLoader.style.display = "none"; // লোডিং শেষ হলে এনিমেশন লুকিয়ে যাবে
+  }
+
+  const timeout = setTimeout(() => {
+    finish();
+    if (!COMMON_ONLINE_SERVICES.length) {
+      count.textContent = "Error Loading";
+      noResult.style.display = "block";
+      noResult.querySelector("h3").textContent = "⚠️ সার্ভিস লোড হয়নি";
+      noResult.querySelector("p").textContent = "ইন্টারনেট বা ইউআরএল চেক করুন।";
+    }
+  }, 15000);
+
+  window[callbackName] = function (response) {
+    if (finished) return;
+    clearTimeout(timeout);
+    finish();
+
+    if (!response || response.ok !== true || !Array.isArray(response.services)) {
+      if (!COMMON_ONLINE_SERVICES.length) {
+        count.textContent = "No Data";
+        noResult.style.display = "block";
+      }
+      return;
+    }
+
+    COMMON_ONLINE_SERVICES = response.services
+      .filter(service => service && service.name)
+      .map(service => ({
+        id: String(service.id || ""),
+        name: String(service.name || ""),
+        description: String(service.description || ""),
+        icon: String(service.icon || "⚡"),
+        links: Array.isArray(service.links)
+          ? service.links.filter(link => link && link.title && /^https?:\/\/\S+$/i.test(String(link.url || ""))).map(link => ({
+              title: String(link.title || ""),
+              description: String(link.description || ""),
+              url: String(link.url || "")
+            }))
+          : []
+      }));
+
+    filterServices();
+  };
+
+  const separator = COMMON_SERVICE_API_URL.includes("?") ? "&" : "?";
+  script.src = COMMON_SERVICE_API_URL + separator + "action=list&callback=" + encodeURIComponent(callbackName) + "&_ts=" + Date.now();
+
+  script.onerror = function () {
+    clearTimeout(timeout);
+    finish();
+    if (!COMMON_ONLINE_SERVICES.length) {
+      count.textContent = "Offline";
+      noResult.style.display = "block";
+    }
+  };
+
+  document.head.appendChild(script);
+}
+
+function filterServices() {
+  const value = search.value.trim().toLocaleLowerCase();
+  const filtered = COMMON_ONLINE_SERVICES.filter(service => {
+    const searchable = [
+      service.name,
+      service.description,
+      ...(service.links || []).flatMap(link => [link.title, link.description])
+    ].join(" ").toLocaleLowerCase();
+    return searchable.includes(value);
+  });
+  renderServices(filtered);
+}
+
+function openService(service, trigger) {
+  lastFocusedElement = trigger || document.activeElement;
+
+  modalIcon.textContent = service.icon || "⚡";
+  modalTitle.textContent = service.name;
+  modalDescription.textContent = service.description || "Select an option";
+
+  modalLinks.replaceChildren();
+
+  if (!Array.isArray(service.links) || !service.links.length) {
+    const empty = document.createElement("p");
+    empty.textContent = "No option available.";
+    empty.style.cssText = "grid-column:1/-1;text-align:center;padding:20px;color:#71828a";
+    modalLinks.appendChild(empty);
+  } else {
+    service.links.forEach((link, linkIndex) => {
+      if (!/^https?:\/\/\S+$/i.test(link.url || "")) return;
+
+      const a = document.createElement("a");
+      a.className = "common-service-link";
+      a.href = link.url;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+
+      const subTheme = pastelThemes[linkIndex % pastelThemes.length];
+      a.style.setProperty('--sub-bg', subTheme.bg);
+      a.style.setProperty('--sub-text', subTheme.text);
+      a.style.setProperty('--sub-desc', subTheme.desc);
+
+      const strong = document.createElement("strong");
+      strong.textContent = link.title || "Open Service";
+
+      const span = document.createElement("span");
+      span.textContent = link.description || "Open online service";
+
+      a.append(strong, span);
+      modalLinks.appendChild(a);
+    });
+  }
+
+  callButton.href = "tel:" + COMMON_SERVICE_PHONE;
+  const message = "Hello, I want help regarding " + service.name;
+  whatsappButton.href = "https://wa.me/" + COMMON_SERVICE_WHATSAPP + "?text=" + encodeURIComponent(message);
+
+  modal.classList.add("active");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeService() {
+  if (!modal.classList.contains("active")) return;
+  modal.classList.remove("active");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+
+  if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
     lastFocusedElement.focus();
   }
 }
 
 modalClose.addEventListener("click", closeService);
-
 modal.addEventListener("click", event => {
   if (event.target === modal) closeService();
 });
@@ -394,32 +801,12 @@ document.addEventListener("keydown", event => {
   if (event.key === "Escape" && modal.classList.contains("active")) {
     closeService();
   }
-
-  if (event.key === "Tab" && modal.classList.contains("active")) {
-    const focusable = modal.querySelectorAll(
-      'a[href],button:not([disabled])'
-    );
-    if (!focusable.length) return;
-
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  }
 });
 
 search.addEventListener("input", filterServices);
 
-/* প্রথমবার লোড এবং পরে প্রতি 60 সেকেন্ডে আপডেট পরীক্ষা */
 loadLiveServices();
 setInterval(loadLiveServices, 60000);
 </script>
 </body>
 </html>
-
