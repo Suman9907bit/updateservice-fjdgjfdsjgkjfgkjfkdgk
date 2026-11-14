@@ -394,49 +394,772 @@ function openService(service, trigger) {
       const strong = document.createElement("strong");
       strong.textContent = link.title || "Open Service";
 
-      const span = document.createElement("span");
-      span.textContent = link.description || "Open online service";
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#087f8c">
+<meta name="description" content="Jana Online Service - Common Online Services and useful government portals.">
+<title>Jana Online Service</title>
 
-      a.append(strong, span);
-      modalLinks.appendChild(a);
-    });
-  }
-
-  callButton.href = "tel:" + COMMON_SERVICE_PHONE;
-  const message = "Hello, I want help regarding " + service.name;
-  whatsappButton.href = "https://wa.me/" + COMMON_SERVICE_WHATSAPP + "?text=" + encodeURIComponent(message);
-
-  modal.classList.add("active");
-  modal.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
+<style>
+:root{
+--teal:#087f8c;
+--teal-dark:#075b63;
+--navy:#183747;
+--ink:#203746;
+--page:#edf3f7;
 }
 
-function closeService() {
-  if (!modal.classList.contains("active")) return;
-  modal.classList.remove("active");
-  modal.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 
-  if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
-    lastFocusedElement.focus();
-  }
+html,body{
+margin:0;padding:0;width:100%;min-height:100%;
+background:#edf3f7;color:var(--ink);
+font-family:Arial,"Noto Sans Bengali",sans-serif;
+-webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
 
-modalClose.addEventListener("click", closeService);
-modal.addEventListener("click", event => {
-  if (event.target === modal) closeService();
+button,input,a{font:inherit}
+
+body{
+background:radial-gradient(ellipse at 10% 0%,#dceff2 0%,transparent 40%),
+linear-gradient(145deg,#f4f8fb,#eaf1f6);
+}
+
+.app-shell{
+display:flex;flex-direction:column;width:100%;
+max-width:1280px;min-height:100vh;min-height:100dvh;
+margin:auto;position:relative;background:transparent;
+}
+
+.app-main{
+flex:1;width:100%;overflow-y:auto;
+padding:22px clamp(14px,3vw,32px) 35px;
+scroll-behavior:smooth;
+-webkit-overflow-scrolling:touch;
+}
+
+/* SEARCH */
+
+.common-toolbar{
+display:flex;flex-direction:column;gap:14px;
+margin-bottom:22px;padding:18px;
+border:1px solid #fff;border-radius:20px;
+background:rgba(255,255,255,.96);
+box-shadow:0 5px 22px rgba(30,65,85,.07);
+}
+
+.common-toolbar-top{
+display:flex;align-items:center;justify-content:space-between;
+}
+
+.common-count{
+display:flex;align-items:center;gap:8px;
+color:#087f75;font-size:12px;font-weight:800;
+white-space:nowrap;
+}
+
+.common-count:before{
+content:"";width:8px;height:8px;flex-shrink:0;
+border-radius:50%;background:#18b889;
+box-shadow:0 0 0 4px #e2f7ef;
+}
+
+.common-search{
+width:100%;min-height:49px;padding:13px 17px;
+border:1.5px solid #e1eaf0;border-radius:14px;
+outline:none;color:#203746;background:#f8fafc;
+font-size:13px;transition:.25s;
+}
+
+.common-search::placeholder{color:#98a8b5}
+
+.common-search:focus{
+border-color:#078c94;background:#fff;
+box-shadow:0 0 0 4px rgba(8,127,140,.10);
+}
+
+/* LOADING */
+
+.jos-loader{
+display:none;flex-direction:column;align-items:center;
+justify-content:center;padding:65px 20px;
+text-align:center;width:100%;
+}
+
+.jos-spinner-box{
+position:relative;width:52px;height:52px;margin-bottom:16px;
+}
+
+.jos-spinner-ring{
+position:absolute;inset:0;border:4px solid #dce9ed;
+border-top-color:#087f8c;border-radius:50%;
+animation:josSpin .8s linear infinite;
+}
+
+.jos-spinner-icon{
+position:absolute;inset:0;display:grid;
+place-items:center;font-size:20px;
+animation:josPulse 1.2s infinite;
+}
+
+.jos-loader-title{
+color:#183747;font-size:14px;font-weight:900;margin-bottom:6px;
+}
+
+.jos-loader-sub{color:#718096;font-size:11px}
+
+@keyframes josSpin{to{transform:rotate(360deg)}}
+@keyframes josPulse{50%{transform:scale(1.12);opacity:.65}}
+
+/* SERVICE GRID */
+
+.common-service-grid{
+display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+gap:16px;
+}
+
+@media(max-width:1000px){
+.common-service-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+@media(max-width:700px){
+.common-service-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+}
+
+/* SERVICE CARD */
+
+.common-service-card{
+position:relative;isolation:isolate;min-width:0;overflow:hidden;
+padding:16px;border:1px solid rgba(255,255,255,.95);
+border-radius:19px;background:var(--card-bg,#fff);
+box-shadow:0 4px 15px rgba(31,65,85,.065);
+cursor:pointer;outline:none;
+transition:transform .25s,box-shadow .25s,border-color .25s;
+animation:cardEnter .3s ease both;
+}
+
+.common-service-card:hover{
+transform:translateY(-4px);
+box-shadow:0 12px 25px rgba(31,65,85,.13);
+border-color:#c9e4e8;
+}
+
+.common-service-card:focus-visible{
+outline:3px solid #0c9ba2;outline-offset:3px;
+}
+
+.common-service-card:active{transform:scale(.97)}
+
+.common-service-icon{
+display:flex;align-items:center;justify-content:center;
+width:46px;height:46px;margin-bottom:13px;
+border-radius:15px;background:rgba(255,255,255,.85);
+box-shadow:0 3px 10px rgba(0,0,0,.045);
+font-size:22px;transition:transform .25s;
+}
+
+.common-service-card:hover .common-service-icon{transform:scale(1.08)}
+
+.common-service-card h3{
+margin:0 0 6px;color:var(--card-text,#183747);
+font-size:13px;font-weight:900;line-height:1.5;
+overflow-wrap:anywhere;
+}
+
+.common-service-card p{
+min-height:34px;margin:0;color:var(--card-desc,#647783);
+font-size:10.5px;line-height:1.6;overflow-wrap:anywhere;
+}
+
+.common-service-card-footer{
+display:flex;align-items:center;justify-content:space-between;
+gap:6px;margin-top:13px;padding-top:10px;
+border-top:1px solid rgba(0,0,0,.055);
+}
+
+.common-service-card-footer span:first-child{
+color:var(--card-text,#087f8c);
+font-size:10px;font-weight:800;
+}
+
+.common-service-arrow{
+display:flex;align-items:center;justify-content:center;
+width:27px;height:27px;flex-shrink:0;
+border-radius:9px;color:var(--card-text,#075b63);
+background:rgba(255,255,255,.8);font-size:14px;transition:.2s;
+}
+
+.common-service-card:hover .common-service-arrow{
+background:var(--card-text,#075b63);color:#fff;
+}
+
+@keyframes cardEnter{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+/* NO RESULT */
+
+.common-no-result{
+display:none;margin-top:20px;padding:38px 16px;
+border:1px dashed #cbd9e2;border-radius:18px;
+text-align:center;color:#536b7a;background:#fff;
+}
+
+.common-no-result h3{
+margin:0 0 8px;color:#29495a;font-size:15px;
+}
+
+.common-no-result p{
+margin:0;font-size:11px;line-height:1.7;color:#718096;
+}
+
+/* MODAL */
+
+.common-modal-overlay{
+position:fixed;inset:0;z-index:9999;
+display:flex;align-items:flex-end;justify-content:center;
+padding:0;background:rgba(12,32,46,.58);
+backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+opacity:0;visibility:hidden;pointer-events:none;transition:.25s;
+}
+
+.common-modal-overlay.active{
+opacity:1;visibility:visible;pointer-events:auto;
+}
+
+.common-modal{
+display:flex;flex-direction:column;width:100%;
+max-width:650px;max-height:88vh;max-height:88dvh;
+overflow:hidden;border:1px solid #fff;
+border-radius:25px 25px 0 0;background:#fff;
+box-shadow:0 -15px 45px rgba(0,30,45,.2);
+transform:translateY(40px);transition:transform .3s ease;
+}
+
+.common-modal-overlay.active .common-modal{transform:translateY(0)}
+
+@media(min-width:768px){
+.common-modal-overlay{align-items:center;padding:20px}
+.common-modal{border-radius:24px;transform:translateY(20px) scale(.98)}
+.common-modal-overlay.active .common-modal{transform:translateY(0) scale(1)}
+}
+
+/* MODAL HEADER */
+
+.common-modal-header{
+display:flex;align-items:center;justify-content:space-between;
+gap:12px;flex-shrink:0;padding:17px 20px;color:#fff;
+background:linear-gradient(115deg,#075b63,#078b94);
+}
+
+.common-modal-title-area{
+display:flex;align-items:center;gap:12px;min-width:0;
+}
+
+.common-modal-icon{
+display:flex;align-items:center;justify-content:center;
+width:44px;height:44px;flex-shrink:0;
+border:1px solid rgba(255,255,255,.25);
+border-radius:14px;background:rgba(255,255,255,.15);
+font-size:21px;
+}
+
+.common-modal-header h3{
+margin:0 0 4px;font-size:15px;line-height:1.4;
+overflow-wrap:anywhere;
+}
+
+.common-modal-header p{
+margin:0;color:#d9f2ef;font-size:10.5px;line-height:1.5;
+}
+
+.common-modal-close{
+display:flex;align-items:center;justify-content:center;
+width:36px;height:36px;flex-shrink:0;
+border:1px solid rgba(255,255,255,.25);
+border-radius:11px;color:#fff;
+background:rgba(255,255,255,.15);font-size:21px;cursor:pointer;
+}
+
+.common-modal-close:hover{background:rgba(255,255,255,.3)}
+
+/* MODAL BODY */
+
+.common-modal-body{
+padding:20px;overflow-y:auto;overscroll-behavior:contain;
+-webkit-overflow-scrolling:touch;background:#fff;
+}
+
+.common-modal-label{
+display:flex;align-items:center;gap:8px;
+margin-bottom:15px;color:#405c63;
+font-size:12px;font-weight:800;
+}
+
+.common-modal-label:before{
+content:"";width:4px;height:15px;
+border-radius:4px;background:#078b94;
+}
+
+.common-service-links{
+display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+gap:11px;
+}
+
+@media(max-width:700px){
+.common-service-links{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+}
+
+.common-service-link{
+position:relative;display:block;min-width:0;
+padding:15px 13px;border:1px solid #e8eff2;
+border-radius:15px;text-decoration:none;
+background:var(--sub-bg,#f6fafb);
+box-shadow:0 3px 10px rgba(30,65,85,.035);
+overflow-wrap:anywhere;transition:.22s;
+}
+
+.common-service-link:after{
+content:"↗";position:absolute;top:11px;right:11px;
+color:var(--sub-text,#087f8c);font-size:12px;
+}
+
+.common-service-link:hover{
+transform:translateY(-3px);border-color:#c9e4e8;
+box-shadow:0 8px 18px rgba(30,65,85,.09);
+}
+
+.common-service-link strong{
+display:block;padding-right:15px;margin-bottom:5px;
+color:var(--sub-text,#075b63);
+font-size:13px;font-weight:900;line-height:1.5;
+}
+
+.common-service-link span{
+display:block;color:var(--sub-desc,#687d7e);
+font-size:10px;line-height:1.6;
+}
+
+/* FOOTER */
+
+.common-modal-footer{
+display:flex;align-items:center;justify-content:space-between;
+gap:12px;flex-shrink:0;
+padding:14px 20px calc(14px + env(safe-area-inset-bottom));
+border-top:1px solid #e9eff2;background:#f9fbfc;
+}
+
+.common-contact-buttons{display:flex;gap:10px}
+
+.common-contact-buttons a{
+display:inline-flex;align-items:center;justify-content:center;
+gap:6px;min-height:42px;padding:10px 17px;
+border-radius:12px;font-size:11px;font-weight:800;
+text-decoration:none;transition:.2s;
+}
+
+.common-call-button{
+color:#08777d;background:#e8f6f5;border:1px solid #d5ebea;
+}
+
+.common-whatsapp-button{
+color:#fff;background:linear-gradient(120deg,#078e85,#19ad81);
+box-shadow:0 4px 10px rgba(7,142,133,.15);
+}
+
+.common-contact-buttons a:hover{transform:translateY(-2px)}
+
+.common-modal-footer small{color:#8999a5;font-size:9.5px}
+
+@media(max-width:600px){
+.app-main{padding:14px 12px 25px}
+.common-toolbar{padding:14px;border-radius:17px;margin-bottom:15px}
+.common-service-card{padding:13px;border-radius:16px}
+.common-service-icon{width:42px;height:42px;font-size:19px}
+.common-service-card h3{font-size:12px}
+.common-service-card p{font-size:10px}
+.common-modal-footer{flex-direction:column;align-items:stretch}
+.common-contact-buttons{display:grid;grid-template-columns:1fr 1fr}
+.common-modal-footer small{text-align:center}
+}
+
+@media(max-width:360px){
+.common-service-grid{gap:8px}
+.common-service-card{padding:11px}
+.common-service-card h3{font-size:11px}
+}
+
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{
+animation-duration:.01ms!important;
+animation-iteration-count:1!important;
+scroll-behavior:auto!important;
+transition-duration:.01ms!important;
+}
+}
+</style>
+</head>
+
+<body>
+<div class="app-shell">
+<main class="app-main">
+
+<div class="common-toolbar">
+<div class="common-toolbar-top">
+<div id="commonServiceCount" class="common-count" aria-live="polite">0 Services</div>
+</div>
+<input type="search" id="commonServiceSearch" class="common-search"
+placeholder="🔎 সার্ভিসের নাম লিখে খুঁজুন..."
+aria-label="Search services">
+</div>
+
+<div id="josLoader" class="jos-loader">
+<div class="jos-spinner-box">
+<div class="jos-spinner-ring"></div>
+<div class="jos-spinner-icon">⚡</div>
+</div>
+<div class="jos-loader-title">Jana Online Service</div>
+<div class="jos-loader-sub">সার্ভিস ডেটা লোড হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...</div>
+</div>
+
+<div id="commonServiceGrid" class="common-service-grid"></div>
+
+<div id="commonServiceNoResult" class="common-no-result">
+<h3>😔 কোনো Service পাওয়া যায়নি</h3>
+<p>অন্য কোনো Service Name দিয়ে Search করুন।</p>
+</div>
+
+</main>
+</div>
+
+<div id="commonServiceModal" class="common-modal-overlay" aria-hidden="true">
+<section class="common-modal" role="dialog" aria-modal="true"
+aria-labelledby="commonModalTitle" aria-describedby="commonModalDescription">
+
+<div class="common-modal-header">
+<div class="common-modal-title-area">
+<div id="commonModalIcon" class="common-modal-icon">⚡</div>
+<div>
+<h3 id="commonModalTitle">Service</h3>
+<p id="commonModalDescription">Select an option</p>
+</div>
+</div>
+<button type="button" id="commonModalClose"
+class="common-modal-close" aria-label="Close dialog">×</button>
+</div>
+
+<div class="common-modal-body">
+<div class="common-modal-label">Select Service Option</div>
+<div id="commonServiceLinks" class="common-service-links"></div>
+</div>
+
+<div class="common-modal-footer">
+<div class="common-contact-buttons">
+<a href="tel:9907992247" id="commonCallButton"
+class="common-call-button">📞 Call</a>
+<a href="#" id="commonWhatsappButton"
+class="common-whatsapp-button" target="_blank"
+rel="noopener noreferrer">💬 WhatsApp</a>
+</div>
+<small>Links open in new tab</small>
+</div>
+
+</section>
+</div>
+
+<script>
+"use strict";
+
+const COMMON_SERVICE_API_URL = "https://script.google.com/macros/s/AKfycbw6SNpXopZ2xHlV1x2MVLtfbtP_JLvoGad0QC-aUH-I0Xr3datailH1YZLrODlTV-JD/exec";
+
+const COMMON_SERVICE_PHONE = "9907992247";
+const COMMON_SERVICE_WHATSAPP = "919907992247";
+
+let COMMON_ONLINE_SERVICES = [];
+let lastFocusedElement = null;
+let loadingServices = false;
+
+const grid = document.getElementById("commonServiceGrid");
+const count = document.getElementById("commonServiceCount");
+const search = document.getElementById("commonServiceSearch");
+const noResult = document.getElementById("commonServiceNoResult");
+const josLoader = document.getElementById("josLoader");
+const modal = document.getElementById("commonServiceModal");
+const modalClose = document.getElementById("commonModalClose");
+const modalIcon = document.getElementById("commonModalIcon");
+const modalTitle = document.getElementById("commonModalTitle");
+const modalDescription = document.getElementById("commonModalDescription");
+const modalLinks = document.getElementById("commonServiceLinks");
+const callButton = document.getElementById("commonCallButton");
+const whatsappButton = document.getElementById("commonWhatsappButton");
+
+const pastelThemes = [
+{bg:"#f0f9ff",text:"#0369a1",desc:"#334155"},
+{bg:"#fdf4ff",text:"#a21caf",desc:"#4a5568"},
+{bg:"#f0fdf4",text:"#15803d",desc:"#334155"},
+{bg:"#fffbeb",text:"#b45309",desc:"#4a5568"},
+{bg:"#fff1f2",text:"#be123c",desc:"#4a5568"},
+{bg:"#f5f3ff",text:"#6d28d9",desc:"#4a5568"},
+{bg:"#ecfdf5",text:"#047857",desc:"#334155"},
+{bg:"#fff7ed",text:"#c2410c",desc:"#4a5568"}
+];
+
+function renderServices(list){
+grid.replaceChildren();
+count.textContent=list.length+" Services Available";
+noResult.style.display=list.length?"none":"block";
+
+list.forEach((service,index)=>{
+const card=document.createElement("article");
+card.className="common-service-card";
+card.style.animationDelay=Math.min(index*20,200)+"ms";
+card.setAttribute("role","button");
+card.setAttribute("tabindex","0");
+card.setAttribute("aria-label","Open "+service.name);
+
+const theme=pastelThemes[index%pastelThemes.length];
+card.style.setProperty("--card-bg",theme.bg);
+card.style.setProperty("--card-text",theme.text);
+card.style.setProperty("--card-desc",theme.desc);
+
+const icon=document.createElement("div");
+icon.className="common-service-icon";
+icon.textContent=service.icon||"⚡";
+
+const title=document.createElement("h3");
+title.textContent=service.name||"Online Service";
+
+const description=document.createElement("p");
+description.textContent=service.description||"Explore options.";
+
+const footer=document.createElement("div");
+footer.className="common-service-card-footer";
+
+const view=document.createElement("span");
+view.textContent="View Options";
+
+const arrow=document.createElement("span");
+arrow.className="common-service-arrow";
+arrow.setAttribute("aria-hidden","true");
+arrow.textContent="→";
+
+footer.append(view,arrow);
+card.append(icon,title,description,footer);
+
+card.addEventListener("click",()=>openService(service,card));
+
+card.addEventListener("keydown",event=>{
+if(event.key==="Enter"||event.key===" "){
+event.preventDefault();
+openService(service,card);
+}
 });
 
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape" && modal.classList.contains("active")) {
-    closeService();
-  }
+grid.appendChild(card);
+});
+}
+
+function loadLiveServices(){
+if(loadingServices)return;
+
+if(!COMMON_SERVICE_API_URL||
+COMMON_SERVICE_API_URL==="PASTE_YOUR_DEPLOY_URL_HERE"){
+count.textContent="Deploy URL Required";
+noResult.style.display="block";
+noResult.querySelector("h3").textContent="⚙️ API URL বসান";
+noResult.querySelector("p").textContent="Apps Script Web App URL বসান।";
+return;
+}
+
+loadingServices=true;
+count.textContent="Loading...";
+noResult.style.display="none";
+josLoader.style.display="flex";
+grid.replaceChildren();
+
+const callbackName="josServicesCallback_"+Date.now()+"_"+Math.floor(Math.random()*100000);
+const script=document.createElement("script");
+let finished=false;
+let timeout;
+
+function finish(){
+if(finished)return;
+finished=true;
+loadingServices=false;
+script.remove();
+delete window[callbackName];
+josLoader.style.display="none";
+}
+
+timeout=setTimeout(()=>{
+finish();
+
+if(!COMMON_ONLINE_SERVICES.length){
+count.textContent="Error Loading";
+noResult.style.display="block";
+noResult.querySelector("h3").textContent="⚠️ সার্ভিস লোড হয়নি";
+noResult.querySelector("p").textContent="ইন্টারনেট বা ইউআরএল চেক করুন।";
+}
+},15000);
+
+window[callbackName]=function(response){
+if(finished)return;
+clearTimeout(timeout);
+finish();
+
+if(!response||response.ok!==true||!Array.isArray(response.services)){
+if(!COMMON_ONLINE_SERVICES.length){
+count.textContent="No Data";
+noResult.style.display="block";
+noResult.querySelector("h3").textContent="⚠️ কোনো ডেটা পাওয়া যায়নি";
+noResult.querySelector("p").textContent="পরে আবার চেষ্টা করুন অথবা API সংযোগ পরীক্ষা করুন।";
+}
+return;
+}
+
+COMMON_ONLINE_SERVICES=response.services
+.filter(service=>service&&service.name)
+.map(service=>({
+id:String(service.id||""),
+name:String(service.name||""),
+description:String(service.description||""),
+icon:String(service.icon||"⚡"),
+links:Array.isArray(service.links)
+?service.links
+.filter(link=>link&&link.title&&/^https?:\/\/\S+$/i.test(String(link.url||"")))
+.map(link=>({
+title:String(link.title||""),
+description:String(link.description||""),
+url:String(link.url||"")
+}))
+:[]
+}));
+
+filterServices();
+};
+
+const separator=COMMON_SERVICE_API_URL.includes("?")?"&":"?";
+script.src=COMMON_SERVICE_API_URL+separator+
+"action=list&callback="+encodeURIComponent(callbackName)+
+"&_ts="+Date.now();
+
+script.onerror=function(){
+clearTimeout(timeout);
+finish();
+
+if(!COMMON_ONLINE_SERVICES.length){
+count.textContent="Offline";
+noResult.style.display="block";
+noResult.querySelector("h3").textContent="⚠️ সংযোগ পাওয়া যায়নি";
+noResult.querySelector("p").textContent="ইন্টারনেট সংযোগ ও Apps Script URL পরীক্ষা করুন।";
+}
+};
+
+document.head.appendChild(script);
+}
+
+function filterServices(){
+const value=search.value.trim().toLocaleLowerCase();
+
+const filtered=COMMON_ONLINE_SERVICES.filter(service=>{
+const searchable=[
+service.name,
+service.description,
+...(service.links||[]).flatMap(link=>[link.title,link.description])
+].join(" ").toLocaleLowerCase();
+
+return searchable.includes(value);
 });
 
-search.addEventListener("input", filterServices);
+renderServices(filtered);
+}
+
+function openService(service,trigger){
+lastFocusedElement=trigger||document.activeElement;
+
+modalIcon.textContent=service.icon||"⚡";
+modalTitle.textContent=service.name;
+modalDescription.textContent=service.description||"Select an option";
+
+modalLinks.replaceChildren();
+
+if(!Array.isArray(service.links)||!service.links.length){
+const empty=document.createElement("p");
+empty.textContent="No option available.";
+empty.style.cssText="grid-column:1/-1;text-align:center;padding:20px;color:#71828a";
+modalLinks.appendChild(empty);
+}else{
+
+service.links.forEach((link,linkIndex)=>{
+if(!/^https?:\/\/\S+$/i.test(link.url||""))return;
+
+const a=document.createElement("a");
+a.className="common-service-link";
+a.href=link.url;
+a.target="_blank";
+a.rel="noopener noreferrer";
+
+const subTheme=pastelThemes[linkIndex%pastelThemes.length];
+a.style.setProperty("--sub-bg",subTheme.bg);
+a.style.setProperty("--sub-text",subTheme.text);
+a.style.setProperty("--sub-desc",subTheme.desc);
+
+const strong=document.createElement("strong");
+strong.textContent=link.title||"Open Service";
+
+const span=document.createElement("span");
+span.textContent=link.description||"Open online service";
+
+a.append(strong,span);
+modalLinks.appendChild(a);
+});
+}
+
+callButton.href="tel:"+COMMON_SERVICE_PHONE;
+
+const message="Hello, I want help regarding "+service.name;
+whatsappButton.href="https://wa.me/"+COMMON_SERVICE_WHATSAPP+
+"?text="+encodeURIComponent(message);
+
+modal.classList.add("active");
+modal.setAttribute("aria-hidden","false");
+document.body.style.overflow="hidden";
+modalClose.focus();
+}
+
+function closeService(){
+if(!modal.classList.contains("active"))return;
+
+modal.classList.remove("active");
+modal.setAttribute("aria-hidden","true");
+document.body.style.overflow="";
+
+if(lastFocusedElement&&typeof lastFocusedElement.focus==="function"){
+lastFocusedElement.focus();
+}
+}
+
+modalClose.addEventListener("click",closeService);
+
+modal.addEventListener("click",event=>{
+if(event.target===modal)closeService();
+});
+
+document.addEventListener("keydown",event=>{
+if(event.key==="Escape"&&modal.classList.contains("active")){
+closeService();
+}
+});
+
+search.addEventListener("input",filterServices);
 
 loadLiveServices();
-setInterval(loadLiveServices, 60000);
+setInterval(loadLiveServices,60000);
 </script>
 </body>
 </html>
+
